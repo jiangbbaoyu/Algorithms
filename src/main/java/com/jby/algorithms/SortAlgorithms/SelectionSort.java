@@ -6,7 +6,8 @@ import org.junit.Test;
 import java.util.Arrays;
 
 /**
- * 选择排序  O(N*N)
+ * 选择排序  O(N*N) :
+ * 每次选择一个最小值交换到数组的头部； 排除该最小值后，从剩余的数组元素中再次选择一个最小值，交换到头部第二个位置，以此类推
  */
 public class SelectionSort {
 

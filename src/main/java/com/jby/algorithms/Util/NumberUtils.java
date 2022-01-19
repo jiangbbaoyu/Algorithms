@@ -30,10 +30,10 @@ public class NumberUtils {
 
     public static int[] generateRandomIntArr(int len){
         Random random = new Random();
-        int[] res = new int[len];
+        int[] arr = new int[len];
         for (int i = 0; i < len; i++) {
-            res[i] = random.nextInt(100);
+            arr[i] = random.nextInt(100);
         }
-        return res;
+        return arr;
     }
 }
