@@ -29,11 +29,23 @@ public class NumberUtils {
     }
 
     public static int[] generateRandomIntArr(int len){
+        return generateRandomIntArr(len,100);
+    }
+    public static int[] generateRandomIntArr(int len,int limit){
         Random random = new Random();
         int[] arr = new int[len];
         for (int i = 0; i < len; i++) {
-            arr[i] = random.nextInt(100);
+            arr[i] = random.nextInt(limit);
         }
         return arr;
     }
+    public static int[] generateRandomIntArr(Integer ... nums){
+        int[] arr = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            arr[i]=nums[i];
+        }
+        return arr;
+    }
+
+
 }
