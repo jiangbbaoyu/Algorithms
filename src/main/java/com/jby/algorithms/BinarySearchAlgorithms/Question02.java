@@ -29,7 +29,8 @@ public class Question02 {
 
         while(left<right){// 当left==right时，已经定位到了一个局部最大值，将该值返回即可，不用继续进入循环了 （此时没有必要）
 
-            int middle =(left+right)/2;
+//            int middle =(left+right)/2;
+            int middle =left +((right-left)>>1);
 
             if (nums[middle]<nums[middle+1]){
                 left =middle+1;  // 此时middle所在的元素不可能是局部最大值，因此直接将left赋值为middle+1

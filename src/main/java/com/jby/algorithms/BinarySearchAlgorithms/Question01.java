@@ -19,7 +19,8 @@ public class Question01 {
         int mostLeft =-1;
 
         while (left<=right){// 考虑到二分到数组只剩一个元素的情况，此处要加上等于号。
-            int middle = (left+right)/2;
+//            int middle = (left+right)/2;
+            int middle = left + ((right-left)>>1);  //防止溢出
             if (arr[middle]>=target){ // 当找到等于target的值后，继续向左找
                 System.out.println("mostLeft:"+mostLeft);
                 mostLeft=middle; // 记录当前找到的大于等于target的值，
@@ -78,7 +79,8 @@ public class Question01 {
         int left =0;
         int right=nums.length-1;
         while(left<=right){// 注意等于号
-            int middle=(left+right)/2;
+//            int middle=(left+right)/2;
+            int middle = left + ((right-left)>>1);  //防止溢出
             if (nums[middle]==target){ //定位到target后，开始确定该元素第一次出现和最后一次出现的位置 (左右滑动指针)
                 res[0]=middle;
                 res[1]=middle;
@@ -126,7 +128,8 @@ public class Question01 {
         int boundary =-1;
 
         while(left<=right){// 注意等于号
-            int middle=(left+right)/2;
+//            int middle=(left+right)/2;
+            int middle = left + ((right-left)>>1);  //防止溢出
 
             if(nums[middle]<target){
                 left =middle+1;

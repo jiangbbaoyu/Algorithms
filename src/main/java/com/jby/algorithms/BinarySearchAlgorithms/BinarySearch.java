@@ -24,7 +24,8 @@ public class BinarySearch {
         // 否则如果此时left+1==right, 且数组中right位置的值正好是target的话。
         // 本轮计算出的middle值为left, 而arr[middle]<target; 下一轮中left就赋值为middle+1 ,与right值一致。如果没有等于号的话，就会导致错过target在right位置的情况
         while (left<=right){
-            int middle = (left + right) / 2;
+//            int middle = (left + right) / 2; // 当数组元素很大时，left+right可能会导致int类型数据溢出
+            int middle = left + ((right-left)>>1);  //防止溢出
 //            System.out.println("middle:"+middle);
             if (arr[middle]==target){
                 return middle;
