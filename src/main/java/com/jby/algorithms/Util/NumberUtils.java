@@ -28,6 +28,13 @@ public class NumberUtils {
 
     }
 
+
+
+    public static int[] generateRandomIntArr(){
+        int randomLen = new Random().nextInt(20);
+        return generateRandomIntArr(randomLen);
+    }
+
     public static int[] generateRandomIntArr(int len){
         return generateRandomIntArr(len,100);
     }
