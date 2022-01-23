@@ -16,16 +16,12 @@ public class MergeSort {
      */
     public void mergeSort(int[] arr){
 
-        if (arr==null|| arr.length==1){
+        if (arr==null|| arr.length<=1){
             return;
         }
 
-        int left = 0;
-        int right = arr.length-1;
         int[] tempArr =new int[arr.length];// 单线程排序，可以保证tempArr的安全使用
-
-        sortPartial(arr,tempArr,left,right);
-
+        sortPartial(arr,tempArr,0,arr.length-1);
     }
 
     private void sortPartial(int[] arr, int[] tempArr,int left, int right) {
