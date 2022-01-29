@@ -12,6 +12,8 @@ public class MergeSort {
      * 归并排序，时间复杂度 O(N*logN) ;根据master公式，满足 a*logb ==d的场景  ；  空间复杂度O(N)
      * 其核心思想是首先将数组两个连续的局部变为有序，然后将这两个局部有序部分merge为一个整体有序的部分
      *
+     * 可以保证稳定性
+     *
      * @param arr
      */
     public void mergeSort(int[] arr){
@@ -45,7 +47,8 @@ public class MergeSort {
         int k=left;  // temp arr cursor
 
         while(i<=middle && j<=right){
-            tempArr[k++] = arr[i]<arr[j]?arr[i++]:arr[j++];
+            tempArr[k++] = arr[i]<=arr[j]?arr[i++]:arr[j++];// 稳定
+            tempArr[k++] = arr[i]<arr[j]?arr[i++]:arr[j++];// 不稳定
         }
 
         while(i<=middle){

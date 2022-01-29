@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 /**
  *  堆： 本质上是一个完全二叉树， 数据可以存放在数组中
+ *  不具有稳定性 时间复杂度O(N*logN) ,空间复杂度 O(1)
  *  leftChild = parent*2 +1;
  *  rightChild = parent*2+2;
  *  parent = (child-1)/2;

@@ -11,6 +11,7 @@ import static com.jby.algorithms.Util.NumberUtils.swap;
 /**
  * V1,V2 最坏时间复杂度 O(N*N) ,eg: 数组是从小到大的， 要求从大到小排序
  * V3 没有最坏时间复杂度， 整体是一个O(N*logN)的实际复杂度 ; 递归使用的额外空间复杂度 O(logN)
+ * 不具有稳定性
  */
 public class QuickSort {
 

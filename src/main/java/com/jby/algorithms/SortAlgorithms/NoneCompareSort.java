@@ -33,6 +33,8 @@ public class NoneCompareSort {
     /**
      * 基数排序： 取出数组中最大的数并计算其位数.对于其他数,高位补零
      * 然后按个位数排序，十位数排序，依次进行... (优先级高位的放在后面)
+     * 时间复杂度 O(N*Digits)  Digits为数组元素的最大位数 ，空间复杂度 O(N)
+     * 具有稳定性
      * @param arr
      */
     public void radixSort(int[] arr){
@@ -79,11 +81,9 @@ public class NoneCompareSort {
                 arr[i] = temp[i]; // 将按特定位进行排序的结果写回数组
             }
 
-
             for (int i = 1; i <= counts.length-1; i++) {
                 counts[i] = 0;  // reset counts
             }
-
         }
     }
 

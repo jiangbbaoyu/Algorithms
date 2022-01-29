@@ -8,6 +8,7 @@ import java.util.Collections;
 
 /**
  * 冒泡排序 O(N*N)
+ * 具有稳定性
  */
 public class BubbleSort {
 

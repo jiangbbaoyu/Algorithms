@@ -17,6 +17,8 @@ import java.util.Arrays;
  *  1   3 4 2 1
  *  2   2 3 4 1
  *  3   1 2 3 4
+ *
+ *  具有稳定性，在寻找插入位置时，一个元素不会插入到值等于该元素位置的前面
  */
 public class InsertionSort {
 
