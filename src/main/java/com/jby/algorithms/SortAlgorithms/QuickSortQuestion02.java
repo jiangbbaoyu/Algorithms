@@ -6,8 +6,10 @@ import org.junit.Test;
 import java.util.Arrays;
 
 /**
+ *
+ * （leetcode 2224）剑指 Offer 21. 调整数组顺序使奇数位于偶数前面
  * 将数组中的奇数放在数组左边，偶数放在数组右边，不能使用额外数组空间，不要求值相同的元素原始的相对次序不变
- * 该问题与快排partition是等效的，稳定性是无法做到的
+ * 该问题与 快排1.0的partition过程 是等效的，稳定性是无法做到的
  */
 public class QuickSortQuestion02 {
 
