@@ -59,27 +59,27 @@ public class Question04 {
         Node curr=head;
         while(curr!=null){
             Node next = curr.next;
-            Node newCurr = new Node(curr.val);// 链表节点扩充
-            curr.next=newCurr;
-            newCurr.next=next;
+            Node currCopy = new Node(curr.val);// 链表节点扩充
+            curr.next=currCopy;
+            currCopy.next=next;
             curr=next;
         }
 
         curr=head;
         while(curr!=null){
-            Node newCurr = curr.next;
-            newCurr.random=curr.random!=null?curr.random.next:null;//维护新添加节点的random指针
+            Node currCopy = curr.next;
+            currCopy.random=curr.random!=null?curr.random.next:null;//维护新添加节点的random指针
 
-            curr=newCurr.next;
+            curr=currCopy.next;
         }
 
         curr=head;
-        Node newHead=curr.next;
+        Node copyHead=curr.next;
         while(curr!=null&&curr.next!=null){
             Node next = curr.next;
             curr.next=curr.next.next; // 链表拆分
             curr=next;
         }
-        return newHead;
+        return copyHead;
     }
 }
