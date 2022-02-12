@@ -124,6 +124,52 @@ public class Question03 {
         return newHead;
     }
 
+    /**
+     * leetcode 328 奇偶链表问题
+     * 给定单链表的头节点 head ，将所有索引为奇数的节点和索引为偶数的节点分别组合在一起，然后返回重新排序的列表。
+     * @param head
+     * @return
+     */
+    public ListNode oddEvenList(ListNode head) {
+        int idx =1;
+        ListNode oddHead=null;
+        ListNode oddTail=null;
+        ListNode evenHead=null;
+        ListNode evenTail=null;
+
+        ListNode cur=head;
+        while(cur!=null){
+
+            if(idx%2==1){
+                if(oddHead==null){
+                    oddHead=cur;
+                    oddTail=cur;
+                }else{
+                    oddTail.next=cur;
+                    oddTail=cur;
+                }
+            }else{
+                if(evenHead==null){
+                    evenHead=cur;
+                    evenTail=cur;
+                }else{
+                    evenTail.next=cur;
+                    evenTail=cur;
+                }
+            }
+            idx++;
+            cur=cur.next;
+        }
+
+        if(oddHead!=null){
+            oddTail.next=evenHead;  //连接奇数链表和偶数链表
+        }
+        if(evenTail!=null){
+            evenTail.next=null;  // break the cycle
+        }
+        return oddHead;
+    }
+
 
 
     @Test
