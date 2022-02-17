@@ -288,7 +288,7 @@ public class Question01 {
     }
 
 
-    // 笨方法，超时了 ，对于空的节点，向队列中添加null 充数。 对于每一层，统计两个非空节点的距离
+    // 笨方法，超时了 ，对于空的节点，向队列中添加null充数（模拟一棵满二叉树）。 对于每一层，统计两个非空节点的距离
     public int widthOfBinaryTree2(TreeNode root) {
         if(root==null){
             return 0;
@@ -364,8 +364,6 @@ public class Question01 {
 
         int i = widthOfBinaryTree(node1);
         System.out.println(i);
-
-
     }
 
 
