@@ -1,5 +1,6 @@
 package com.jby.algorithms.BinaryTreeAlgorithms;
 
+import com.jby.algorithms.LinkedListAlgorithms.ListNode;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -188,6 +189,105 @@ public class Question02 {
     }
 
 
+    /**
+     * leetcode 530. 二叉搜索树的最小绝对差 : 给你一个二叉搜索树的根节点 root ，返回 树中任意两不同节点值之间的最小差值
+     * 思路： 中序遍历， 记录前一个节点与当前遍历节点的绝对值，并更新全局最小绝对值；
+     * @param root
+     * @return
+     */
+    public int getMinimumDifference(TreeNode root) {
+
+        LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+
+        TreeNode pre= null;
+        TreeNode cur=root;
+        int minDelta=Integer.MAX_VALUE;
+
+        while(!stack.isEmpty() || cur!=null){
+
+            while(cur!=null){
+                stack.push(cur);
+                cur=cur.left;
+            }
+
+            cur=stack.pop();
+
+            if(pre!=null && cur.val-pre.val<minDelta){
+                minDelta = cur.val-pre.val ;
+            }
+            pre=cur;
+
+            cur=cur.right;
+        }
+        return minDelta;
+    }
+
+    /**
+     * leetcode 108. 将有序数组转换为二叉搜索树
+     * 给你一个整数数组 nums ，其中元素已经按 升序 排列，请你将其转换为一棵 高度平衡 二叉搜索树。高度平衡 二叉树是一棵满足「每个节点的左右两个子树的高度差的绝对值不超过 1 」的二叉树
+     * 思路：：BST的中序遍历是升序的，因此本题等同于根据中序遍历的序列 恢复 二叉搜索树。
+     *      因此我们可以以升序序列中的任一个元素作为根节点，以该元素左边的升序序列构建左子树，以该元素右边的升序序列构建右子树，这样得到的树就是一棵二叉搜索树。
+     *      又因为本题要求高度平衡，因此在根据升序序列构建平衡二叉树时，需要选择升序序列的中间元素作为二叉搜索数的根节点。这样可以保证二叉搜索树左右子树包含的节点个数最多相差1，即可以保证二叉搜索树的左右子树高度差不超过1
+     * @param nums
+     * @return
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+
+        TreeNode root = sortedArrayToBST(nums,0,nums.length-1);
+        return root;
+    }
+
+    private TreeNode sortedArrayToBST(int[] nums,int left,int right) {
+        if(left>right){
+            return null;
+        }
+        int mid =left+(right-left)/2;
+        TreeNode node = new TreeNode(nums[mid]);
+        node.left=sortedArrayToBST(nums,left,mid-1);
+        node.right=sortedArrayToBST(nums,mid+1,right);
+        return node;
+    }
+
+
+    /**
+     * leetcode 109. 有序链表转换二叉搜索树 : 给定一个单链表，其中的元素按升序排序，将其转换为高度平衡的二叉搜索树
+     * 思路： 使用快慢指针定位到链表的中间节点，同时基于中间节点将链表切为两部分，左边部分链表元素构建左子树，右边部分链表元素构建右子树
+     * @param head
+     * @return
+     */
+    public TreeNode sortedListToBST(ListNode head) {
+
+        if(head==null) {
+            return null;
+        }
+        if(head.next==null){ // 对于本段链表只有一个节点的场景，直接创建一个TreeNode并返回即可
+            return new TreeNode(head.val);
+        }
+
+        ListNode mid = findMidNode(head);// 由于排除了head.next==null的场景，因此找到mid节点后，preMid一定是不为null的
+        TreeNode node = new TreeNode(mid.val);
+
+        node.left=sortedListToBST(head);
+        node.right=sortedListToBST(mid.next);
+        return node;
+    }
+
+    private ListNode findMidNode(ListNode head){
+
+        ListNode midPre = null; // 记录中间节点的前一个节点
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast!=null && fast.next!=null){
+            midPre=slow;
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+
+        midPre.next=null;// 将链表以mid节点切断
+        return slow;
+    }
+
+
     @Test
     public void test1(){
 
@@ -223,6 +323,23 @@ public class Question02 {
         recoverTree(node1);
 
         System.out.println(node1);
+    }
+
+
+    @Test
+    public void test3(){
+
+        ListNode node1 = new ListNode(-10);
+        ListNode node2 = new ListNode(-3);
+        ListNode node3 = new ListNode(0);
+        ListNode node4 = new ListNode(5);
+        ListNode node5 = new ListNode(9);
+        node1.next=node2;
+        node2.next=node3;
+        node3.next=node4;
+        node4.next=node5;
+        TreeNode treeNode = sortedListToBST(node1);
+        System.out.println(treeNode);
     }
 
 
