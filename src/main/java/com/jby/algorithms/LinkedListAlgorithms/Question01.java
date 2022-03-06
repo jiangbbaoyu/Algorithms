@@ -123,6 +123,32 @@ public class Question01 {
 
         return dummy.next; // 此处不能返回head,从链表第一个位置就开始reverse的场景中，head在反转后早就不是链表头节点了
     }
+    public ListNode reverseBetween2(ListNode head, int left, int right) {
+        ListNode dummy =new ListNode(0);
+        dummy.next=head;
+        ListNode pre =dummy;
+        ListNode cur =pre.next;
+
+        int i=1;
+        for(;i<left;i++){
+            pre=pre.next;
+            cur=cur.next;
+        }
+        // 此时cur指向第left个节点
+        ListNode firstReverse=cur;
+        for(;i<=right;i++){
+            ListNode next = cur.next;
+
+            cur.next=pre.next;
+            pre.next=cur;
+            cur=next;
+
+        }
+        firstReverse.next=cur; // left个节点的next指向right+1个节点
+
+        return dummy.next;
+    }
+
 
 
     @Test

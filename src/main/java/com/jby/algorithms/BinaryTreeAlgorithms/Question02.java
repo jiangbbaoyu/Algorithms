@@ -3,10 +3,13 @@ package com.jby.algorithms.BinaryTreeAlgorithms;
 import com.jby.algorithms.LinkedListAlgorithms.ListNode;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * 二叉搜索树问题
+ * 二叉搜索树问题 ：
+ * 主要是根据二叉搜索树的中序遍历序列是递增的
+ * 二叉搜索树的左子树所有节点值均小于 当前节点值；二叉搜索树的右子树所有节点值均大于 当前节点值。 这两个特性来做题的
  */
 public class Question02 {
 
@@ -191,7 +194,7 @@ public class Question02 {
 
     /**
      * leetcode 530. 二叉搜索树的最小绝对差 : 给你一个二叉搜索树的根节点 root ，返回 树中任意两不同节点值之间的最小差值
-     * 思路： 中序遍历， 记录前一个节点与当前遍历节点的绝对值，并更新全局最小绝对值；
+     * 思路： 中序遍历， 记录前一个节点与当前遍历节点的绝对值，并更新全局最小绝对值 （任意两不同节点值之间的最小差值，一定存在中序遍历中相邻的两个节点间）
      * @param root
      * @return
      */
@@ -286,6 +289,137 @@ public class Question02 {
         midPre.next=null;// 将链表以mid节点切断
         return slow;
     }
+
+
+    /**
+     * leetcode 501. 二叉搜索树中的众数： 给你一个含重复值的二叉搜索树（BST）的根节点 root ，找出并返回 BST 中出现频率最高的元素的集合
+     * 思路：
+     * @param root
+     * @return
+     */
+    public int[] findMode(TreeNode root) {
+
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        int maxFreq =0; // 元素值最大的出现频率
+        int freq =0; // 当前遍历节点元素的值出现频率
+        LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+
+        TreeNode pre= null;
+        TreeNode cur=root;
+        while(!stack.isEmpty() || cur!=null){
+
+            while(cur!=null){
+                stack.push(cur);
+                cur=cur.left;
+            }
+
+            cur=stack.pop();
+
+            if(pre!=null && pre.val==cur.val ){
+                freq++; // 当前遍历节点元素值的出现频率 +1
+            }else{
+                freq=1; // 当前遍历节点的值与上一个节点的值不一致，将 当前遍历节点元素值的出现频率置为1
+            }
+            // 更新全局元素值最大的出现频率，并更新临时保存出新频率最大值的ArrayList
+            if(freq>maxFreq){
+                nums.clear();
+                nums.add(cur.val);
+                maxFreq=freq;
+            }else if(freq==maxFreq){
+                nums.add(cur.val);
+            }
+            pre=cur;
+
+            cur=cur.right;
+        }
+
+        int[] res = new int[nums.size()];
+        for(int i=0;i<nums.size();i++){
+            res[i]=nums.get(i);
+        }
+        return res;
+    }
+
+
+    /**
+     * leetcode 235. 二叉搜索树的最近公共祖先： 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先
+     * 思路：二叉搜索树的左子树节点值均小于当前节点值；二叉搜索树的右子树节点值均大于当前节点值。 因此对一个节点，如果p,q中一个大于等于当前值，一个小于等于当前节点值，则该节点是p,q的最近公共祖先
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+        if(p.val>q.val){
+            TreeNode tmp =p;
+            p=q;
+            q=tmp;
+        }
+        return findAncestor(root,p,q);
+    }
+    public TreeNode findAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+        if(root.val>=p.val && root.val<=q.val){
+            return root;
+        }else if(root.val > q.val){
+            return findAncestor(root.left,p,q);
+        }else{
+            return findAncestor(root.right,p,q);
+        }
+    }
+
+    /**
+     * 剑指 Offer 33. 二叉搜索树的后序遍历序列是否合法 ：输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果
+     * 思路： 后序遍历数组中的最后一个元素为二叉树的根节点，后序遍历数组 [0,len-2]个元素为根节点的左子树和右子树元素。且前面部分为左子树，后面部分为右子树；
+     *       如果是二叉搜索树，则前部分元素值均小于后部分元素值。
+     *       eg:   1,3,2     6      5
+     *             ----     ---    ---
+     *             左子树    右子树  根节点
+     *       然后递归判断左右子树即可
+     *       TODO 单调栈解法
+     *
+     * @param postorder
+     * @return
+     */
+    public boolean verifyPostorder(int[] postorder) {
+        return verify(postorder,0,postorder.length-1);
+    }
+
+    private boolean verify(int[] arr, int left, int right){
+
+        if(left>=right){// 子树只有一个元素，此时认为该子树是合法的二叉搜索树
+            return true;
+        }
+
+        int pivot =arr[right];
+        int i=left;
+        int j=right-1;
+
+        while(i<=j){
+            if(arr[i]<pivot){
+                i++;
+            }else if(arr[j]>pivot){
+                j--;
+            }else{
+                return false;  // 不满足前部分元素值均小于后部分元素值
+            }
+
+        }
+
+        // 此时满足前部分元素值均小于后部分元素值 ，j指向左子树元素的最后一个， i指向右子树元素的第一个
+
+        if(!verify(arr,left,j)){
+            return false;
+        }
+
+        if(!verify(arr,i,right-1)){
+            return false;
+        }
+        return true;
+    }
+
+
 
 
     @Test
