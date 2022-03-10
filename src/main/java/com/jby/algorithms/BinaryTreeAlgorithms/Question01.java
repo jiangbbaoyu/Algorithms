@@ -331,6 +331,46 @@ public class Question01 {
         return maxWidth;
     }
 
+    /**
+     * leetcode 958 完全二叉树判定
+     * @param root
+     * @return
+     */
+    public boolean isCompleteTree(TreeNode root) {
+        LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+        boolean findRightChildIsNull=false;
+        queue.addFirst(root);
+
+
+        while(!queue.isEmpty()){
+
+            int levelSize=queue.size();
+
+            while(levelSize>0){
+                TreeNode node = queue.removeLast();
+
+                if(node.right!=null&&node.left==null){ // 一个节点有右孩子而没有左孩子，不是完全二叉树
+                    return false;
+                }
+                // 发现一个节点右孩子为空后，层序遍历中该节点后序的节点必须都为叶子节点； 否则不是完全二叉树
+                if(findRightChildIsNull && (node.left!=null || node.right!=null)){
+                    return false;
+                }
+
+                if(node.left!=null){
+                    queue.addFirst(node.left);
+                }
+                if(node.right!=null){
+                    queue.addFirst(node.right);
+                }else{
+                    findRightChildIsNull=true;
+                }
+                levelSize--;
+            }
+        }
+        return true;
+    }
+
 
     @Test
     public void test(){
