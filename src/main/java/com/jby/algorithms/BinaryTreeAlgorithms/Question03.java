@@ -86,17 +86,11 @@ public class Question03 {
     }
 
 
-
     @Test
     public void test(){
-
         System.out.println((1<<2)-1);
 
     }
-
-
-
-
 }
 
 
