@@ -287,52 +287,56 @@ public class Question01 {
         return maxWidth;
     }
 
+    /**
+     * leetcode 103. 二叉树的锯齿形层序遍历
+     * 思路： 基于层序遍历，使用一个变量控制 从左向右还是右向左
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
 
-    // 笨方法，超时了 ，对于空的节点，向队列中添加null充数（模拟一棵满二叉树）。 对于每一层，统计两个非空节点的距离
-    public int widthOfBinaryTree2(TreeNode root) {
+        List<List<Integer>> res = new ArrayList();
         if(root==null){
-            return 0;
+            return res;
         }
+
         LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
-        int maxWidth = 0;
         queue.addFirst(root);
-
+        boolean leftToRight=true; // 使用一个变量控制 从左向右还是右向左
         while(!queue.isEmpty()){
+            int levelNodesNum = queue.size();
+            int[] levelNodesarr= new int[levelNodesNum];
+            int count=levelNodesNum;
+            while(count>0){
 
-            int curLevelCount=queue.size();
-            int start =0;
-            int end =0;
-
-            for(int i=1;i<=curLevelCount;i++){
                 TreeNode node = queue.removeLast();
-                if(node!=null){
-                    if(start==0){
-                        start =i;
-                        end=i;
-                    }else{
-                        end=i;
-                    }
-                    queue.addFirst(node.left);
-                    queue.addFirst(node.right);
+                if(leftToRight){
+                    levelNodesarr[levelNodesNum-count]=node.val; // 数组由前向后写入数据
                 }else{
-                    // 二叉树中空节点添加null,以构造一个满二叉树
-                    queue.addFirst(null);
-                    queue.addFirst(null);
+                    levelNodesarr[count-1]=node.val;// 数组由后向前写入数据
                 }
+                // TODO 此处也可以使用LinkedList 来存放levelNodes , 根据 leftToRight 决定使用addFirst 还是addLast 方法写入数据
+
+                if(node.left!=null){
+                    queue.addFirst(node.left);
+                }
+                if(node.right!=null){
+                    queue.addFirst(node.right);
+                }
+                count--;
             }
 
-            if (start==0){
-                break;
+            ArrayList<Integer> levelData = new ArrayList<Integer>();
+            for (int i = 0; i < levelNodesarr.length; i++) {
+                levelData.add(levelNodesarr[i]);
             }
-            int max = end-start+1;
+            res.add(levelData);
 
-            maxWidth = max>maxWidth? max:maxWidth;
+            leftToRight = !leftToRight; // 改变方向
         }
-        return maxWidth;
+
+        return res;
     }
-
-
-
 
     @Test
     public void test(){

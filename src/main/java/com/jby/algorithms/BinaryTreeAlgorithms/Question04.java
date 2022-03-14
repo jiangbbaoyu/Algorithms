@@ -4,6 +4,8 @@ package com.jby.algorithms.BinaryTreeAlgorithms;
 /**
  * TODO 动态规划
  * 树形 DP : 根据左子树的信息和右子树的信息得到本棵树的信息
+ *           leetcode 104 二叉树的最大深度
+ *
  */
 public class Question04 {
 
@@ -26,10 +28,10 @@ public class Question04 {
         int lh = isBalancedTree(node.left);
         int rh = isBalancedTree(node.right);
 
+        // 后序遍历
         if(lh==-1 || rh==-1){
             return -1;
         }
-
         if(lh-rh>1 || lh-rh<-1){
             return -1;
         }
