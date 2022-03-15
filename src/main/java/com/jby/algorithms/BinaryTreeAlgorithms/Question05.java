@@ -174,6 +174,30 @@ public class Question05 {
         return root;
     }
 
+    /**
+     * leetcode 111. 二叉树的最小深度 最小深度是从根节点到最近叶子节点的最短路径上的节点数量
+     * 思路：由于是从根节点到最近叶子节点的最短路径，因此不去null的节点统计信息
+     */
+    public int minDepth(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        return findMinDepth(root);
+    }
+
+    private int findMinDepth(TreeNode node) {
+        if(node.left==null && node.right==null){
+            return 1;
+        }
+        if(node.left==null){
+            return minDepth(node.right)+1;
+        }else if(node.right==null){
+            return minDepth(node.left)+1;
+        }else{
+            return Math.min(minDepth(node.left),minDepth(node.right))+1;
+        }
+    }
+
 
     /**
      * leetcode 513 二叉树最底层最左边的值
@@ -246,51 +270,6 @@ public class Question05 {
     }
 
 
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-
-        List<List<Integer>> res = new ArrayList();
-        if(root==null){
-            return res;
-        }
-
-        LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
-        queue.addFirst(root);
-        boolean leftToRight=false;
-
-        while(!queue.isEmpty()){
-
-            int levelNodesNum = queue.size();
-            int[] arr= new int[levelNodesNum];
-            int count=levelNodesNum;
-            while(count>0){
-
-                TreeNode node = queue.removeLast();
-                if(leftToRight){
-                    arr[levelNodesNum-count]=node.val;
-                }else{
-                    arr[count-1]=node.val;
-                }
-
-                if(node.left!=null){
-                    queue.addFirst(node.left);
-                }
-                if(node.right!=null){
-                    queue.addFirst(node.right);
-                }
-                count--;
-            }
-
-            ArrayList<Integer> levelData = new ArrayList<Integer>();
-            for (int i = 0; i < arr.length; i++) {
-                levelData.add(arr[i]);
-            }
-            res.add(levelData);
-
-            leftToRight = !leftToRight;
-        }
-
-        return res;
-    }
 
 
     @Test
@@ -311,25 +290,6 @@ public class Question05 {
         TreeNode root = deserialize(serialize);
         System.out.println(root);
     }
-
-    @Test
-    public void test2(){
-
-        TreeNode node1 = new TreeNode(1);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(4);
-        TreeNode node5 = new TreeNode(5);
-        node1.left=node2;
-        node1.right=node3;
-        node3.left=node4;
-        node3.right=node5;
-
-        List<List<Integer>> lists = zigzagLevelOrder(node1);
-        System.out.println(lists);
-    }
-
-
 
 
 }
