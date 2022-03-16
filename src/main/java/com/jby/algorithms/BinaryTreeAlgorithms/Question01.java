@@ -62,6 +62,87 @@ public class Question01 {
     }
 
     /**
+     * leetcode 114. 二叉树展开为链表
+     * 展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null 。
+     * 展开后的单链表应该与二叉树 先序遍历 顺序相同
+     * 思路： 1） 基于二叉树先序遍历的非递归写法，在节点出栈时，使用尾插法插入到 node构成的链表上
+     */
+    public void flatten(TreeNode root) {
+        if(root==null){
+            return ;
+        }
+        LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+        stack.push(root);
+
+        TreeNode head =null;
+        TreeNode cur=null;
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop();
+
+            if(head==null){
+                head=node;
+                cur=node;
+            }else{
+                cur.left=null;
+                cur.right=node;
+                cur=node;
+            }
+
+            if(node.right!=null){
+                stack.push(node.right);
+            }
+            if(node.left!=null){
+                stack.push(node.left);
+            }
+        }
+    }
+
+    /**
+     * 思路2 ： 基于后序遍历的头插法。 后序遍历与先序遍历的顺序相反， 因此在后序遍历访问一个节点时，将该节点插入到链表的头部
+     *         后序遍历访问一个节点时，该节点的右子树和左子树一定被访问过了，因此可以将该节点的right指针指向 链表头节点；将left指针置空
+     */
+    TreeNode last =null;
+    public void flatten2(TreeNode root) {
+        if(root==null){
+            return ;
+        }
+
+        flatten2(root.right);
+        flatten2(root.left);
+
+        // 后序遍历
+        root.right=last;
+        root.left=null;
+
+        last=root;
+    }
+
+
+    /**
+     * leetcode 199. 二叉树的右视图
+     * 思路: 使用基于 头->右->左 的顺序来先序遍历， 此时可以保证每一层上最右边的节点最先被访问到
+     *      也可以使用层序遍历
+     */
+    public List<Integer> rightSideView(TreeNode root) {
+
+        List<Integer> res = new ArrayList<Integer>();
+        dfs(res,root,1);
+        return res;
+    }
+
+    private void dfs(List<Integer> res, TreeNode node, int depth){
+        if(node==null){
+            return;
+        }
+        if(depth>res.size()){
+            res.add(node.val);
+        }
+        dfs(res,node.right,depth+1);
+        dfs(res,node.left,depth+1);
+
+    }
+
+    /**
      * leetcode 94. 二叉树的中序遍历
      * @param root
      * @return
