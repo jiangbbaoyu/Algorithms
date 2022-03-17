@@ -198,6 +198,26 @@ public class Question05 {
         }
     }
 
+    /**
+     * leetcode 543 二叉树的直径  一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
+     * 思路：二叉树的最小深度一致， 对于子树为空的情况，不在对该子树进行递归，直接给出该子树的信息
+     */
+    private int max =0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        dfs(root);
+        return max;
+    }
+    private int dfs(TreeNode node){
+        if(node.left==null && node.right==null){
+            return 0;
+        }
+        int left=node.left==null?0:dfs(node.left)+1;// 如果左子树为空，该节点+左子树的最大长度就是0
+        int right=node.right==null?0:dfs(node.right)+1;// 如果右子树为空，该节点+右子树的最大长度就是0
+        max=max>left+right?max:left+right;
+        return left>right?left:right;
+    }
+
+
 
     /**
      * leetcode 513 二叉树最底层最左边的值
