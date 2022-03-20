@@ -270,7 +270,120 @@ public class Question05 {
         return -1;
     }
 
+    /**
+     * leetcode 116. 填充每个节点的下一个右侧节点指针
+     * 给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点和一个next节点
+     * 填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL
+     * 思路： 1）前序遍历： 对于一个节点root, 首先将左节点指向右节点；如果root节点的next不为空，则root.right.next指向root.next.left
+     *       2）前序遍历： 对于一个节点root, 首先将左节点指向右节点；然后将 左子树的每层的最右侧节点 连接到同层的右子树的最左侧节点 ； 递归处理左右子树
+     *       3）使用层序遍历
+     */
+    // 方法1
+    public Node connect(Node root) {
+        if(root==null){
+            return null;
+        }
 
+        if(root.left==null && root.right==null){
+            return root;
+        }
+        root.left.next=root.right;
+        if(root.next!=null){
+            root.right.next=root.next.left;
+        }
+
+
+        connect(root.left);
+        connect(root.right);
+        return root;
+    }
+    // 方法2
+    public Node connect2(Node root) {
+        if(root==null){
+            return null;
+        }
+
+        if(root.left==null && root.right==null){
+            return root;
+        }
+
+        connectTwoTree(root.left,root.right);
+        root.left.next=root.right;
+
+        connect2(root.left);
+        connect2(root.right);
+        return root;
+    }
+    private void connectTwoTree(Node left, Node right){
+
+
+        while(left.right!=null && right.left!=null){
+            left.right.next=right.left;
+            left= left.right;
+            right=right.left;
+        }
+    }
+
+    /**
+     * leetcode 117 充每个节点的下一个右侧节点指针
+     *              给定一个 普通二叉树 ，每个父节点都有两个子节点和一个next节点
+     *
+     * 思路： 1）  基于 头右左 的先序遍历
+     *       2）  层序遍历
+     */
+
+    public Node connect3(Node root) {
+        if(root==null){
+            return null;
+        }
+
+        if(root.left==null && root.right==null){
+            return root;
+        }
+        if(root.left!=null ){
+
+            if(root.right!=null){
+                root.left.next=root.right;
+            }else{
+                root.left.next=nextNode(root.next);
+            }
+        }
+
+        if(root.right!=null){
+            root.right.next=nextNode(root.next);
+        }
+
+        // 先确保 root.right 下的节点的已完全连接，因 root.left 下的节点的连接
+        // 需要 root.left.next 下的节点的信息，若 root.right 下的节点未完全连
+        // 接（即先对 root.left 递归），则 root.left.next 下的信息链不完整，将
+        // 返回错误的信息。可能出现的错误情况如下图所示。此时，底层最左边节点将无
+        // 法获得正确的 next 信息：
+        //                  o root
+        //                 / \
+        //     root.left  o —— o  root.right
+        //               /    / \
+        //              o —— o   o
+        //             /        / \
+        //            o        o   o
+        //            ^
+
+        connect3(root.right);
+        connect3(root.left);
+        return root;
+    }
+
+    private Node nextNode(Node node) {
+        while (node != null) {
+            if (node.left != null) {
+                return node.left;
+            }
+            if (node.right != null) {
+                return node.right;
+            }
+            node = node.next;
+        }
+        return null;
+    }
 
 
     @Test
@@ -290,6 +403,23 @@ public class Question05 {
         System.out.println(serialize);
         TreeNode root = deserialize(serialize);
         System.out.println(root);
+    }
+
+    @Test
+    public void test2(){
+
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
+        Node node3 = new Node(3);
+        Node node4 = new Node(4);
+
+        Node node5 = new Node(5);
+        node1.left=node2;
+        node1.right=node3;
+        node2.left=node4;
+        node3.right=node5;
+        Node node = connect3(node1);
+        System.out.println(node);
     }
 
 
