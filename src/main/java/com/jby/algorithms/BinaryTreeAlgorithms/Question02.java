@@ -463,6 +463,32 @@ public class Question02 {
 
     }
 
+    /**
+     * leetcode 538. 把二叉搜索树转换为累加树
+     * 思路： 基于右-头-左的中序遍历， 递归 or 迭代 ; 遍历过程中维护一个遍历过的节点的累加和
+     * @param root
+     * @return
+     */
+    public TreeNode convertBST(TreeNode root) {
+        convert(root,0);
+        return root;
+    }
+
+    public int convert(TreeNode node,int sum) {
+        if(node==null){
+            return sum;
+        }
+
+        int right = convert(node.right,sum);
+
+        node.val=right+node.val;
+        sum =node.val;
+
+        int left =convert(node.left,sum);
+
+        return left;
+    }
+
 
     @Test
     public void test1(){
