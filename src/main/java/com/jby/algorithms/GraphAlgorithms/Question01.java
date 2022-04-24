@@ -112,9 +112,9 @@ public class Question01 {
 
 
     static class Node {
-        int value;
-        int inDegree;
-        ArrayList<Node> nexts;
+        int value; // 课程编号
+        int inDegree; //依赖课程的个数
+        ArrayList<Node> nexts;  // 依赖该课程的课程集合  （出度对应的节点）
         public Node(){
             nexts= new ArrayList<>();
         }
