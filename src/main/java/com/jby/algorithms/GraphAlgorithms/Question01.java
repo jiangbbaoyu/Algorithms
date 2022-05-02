@@ -97,14 +97,14 @@ public class Question01 {
 //                if (newInDegree==0){
 //                    queue.addFirst(relatedNodes);
 //                }
-//            }
+//            }n
 
             // 通过图中的nexts变量找到相邻的节点
             for(GraphNode n:node.nexts){
-                int newInDegree = nodesInDegreeMap.get(node) - 1;
-                nodesInDegreeMap.put(node,newInDegree);
+                int newInDegree = nodesInDegreeMap.get(n) - 1;
+                nodesInDegreeMap.put(n,newInDegree);
                 if (newInDegree==0){
-                    queue.addFirst(node);
+                    queue.addFirst(n);
                 }
             }
         }

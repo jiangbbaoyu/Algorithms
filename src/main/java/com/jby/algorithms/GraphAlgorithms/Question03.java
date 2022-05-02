@@ -25,9 +25,9 @@ public class Question03 {
 
 
         // 每次循环从distanceMap中选择距离startNode距离最近的一个节点 （curNode），
-        int minDistance =0;
         GraphNode curNode = startNode; // 距离startNode最近的节点初始化为startNode节点本身
         while(curNode!=null){
+            int minDistance = distanceMap.get(curNode);
             // 然后遍历该节点的所有边和这些边的toNode,
             for(GraphEdge edge:curNode.edges){
                 GraphNode toNode = edge.to;
@@ -44,7 +44,6 @@ public class Question03 {
 
             // 更新当前距离startNode 距离最小的curNode ，以及这个最小距离
             curNode = findMinDistanceNodeUnlocked(distanceMap, lockedNodes);
-            minDistance = distanceMap.get(curNode);
         }
 
         return distanceMap;

@@ -23,7 +23,7 @@ public class QuickSort {
         doQuickSort(arr,0,arr.length-1);
     }
 
-    // 每次函数调用确定target 在排好序的数组中的最终位置
+    // 每次函数调用确定target在排好序的数组中的最终位置
     private void doQuickSort(int[] arr, int left, int right) {
         if (right>left){ // 当该部分大于1个元素时才可以继续对该部分排序，只有一个元素时，该部分已经是排好序的了
             // 从left~right中随机抽取一个数作为target,避免最坏情况的O(N*N) 时间复杂度
@@ -36,7 +36,7 @@ public class QuickSort {
     }
 
     /**
-     * 该M方法将 left~ right分为三部分，[left,m） : 小于target的部分； [m,n] : 等于target的部分； [n,right] :  大于target的部分
+     * 该M方法将 left~ right分为三部分，[left,m） : 小于target的部分； [m,n] : 等于target的部分； (n,right] :  大于target的部分
      * 返回 等于target部分的左边界和右边界
      * @param arr
      * @param left
