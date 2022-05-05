@@ -12,6 +12,23 @@ import java.util.Arrays;
  *  leftChild = parent*2 +1;
  *  rightChild = parent*2+2;
  *  parent = (child-1)/2;
+ *
+ *  1. 构建堆的过程 (heapInsert or heapify )
+ *     heapify的使用条件：    已知 arr[i+1:n]已经是一个大根堆， 通过heapify操作将第i个元素加入到该大根堆中 使之仍为一个大根堆
+ *     heapInsert的使用条件： 已知 arr[0:i-1]已经是一个大根堆， 通过heapify操作将第i个元素加入到该大根堆中 使之仍为一个大根堆
+ *
+ *    heapInsert
+ *    3  2  1
+ *    |  |  |      O          |
+ *    |  |        /\          |
+ *    |  |       O O       |  |
+ *    |         /\ /\      |  |
+ *    |        O O O O  |  |  |
+ *                      1  2  3
+ *                       heapify
+ *
+ *  2. 调整堆的过程  heapify
+ *
  */
 public class HeapSort {
 
@@ -21,13 +38,13 @@ public class HeapSort {
             return;
         }
 
-        // 数组元素未知，当元素插入到堆底部时通过heapinsert的方式构建大根堆  O(N*logN)
 //        for (int i = 0; i <arr.length ; i++) {
+//            // 构建大根堆：从头结点开始遍历
 //            heapInsert(arr,i);
 //        }
 
-        // 数组元素已知， 从低到顶通过heapify的方式构建大根堆  O(N)
         for (int i = 0; i <arr.length ; i++) {
+            // 构建大根堆：从叶子结点开始遍历
             heapify(arr,arr.length-i-1,arr.length);
         }
 
@@ -77,4 +94,5 @@ public class HeapSort {
         heapSort(arr);
         System.out.println(Arrays.toString(arr));
     }
+
 }

@@ -1,8 +1,8 @@
 package com.jby.algorithms.GraphAlgorithms;
 
-import org.junit.Test;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 /**
  * 单源最短路径问题
@@ -53,7 +53,7 @@ public class Question03 {
 
         GraphNode minDistanceNodeUnlocked=null;
         int minVal=Integer.MAX_VALUE;
-        for(Map.Entry<GraphNode,Integer> e : distanceMap.entrySet()){ // TODO 使用堆的改写来改进 distanceMap结构， 避免使用遍历的方式来找到 minDistanceNodeUnlocked
+        for(Map.Entry<GraphNode,Integer> e : distanceMap.entrySet()){
             if(!lockedNodes.contains(e.getKey()) && e.getValue()<minVal ){
                 minDistanceNodeUnlocked =e.getKey();
                 minVal= e.getValue();
@@ -62,97 +62,132 @@ public class Question03 {
         return minDistanceNodeUnlocked;
     }
 
-
     /**
-     * nowcoder NC158  单源最短路问题
+     * 方法二 : 使用堆的改写来改进 distanceMap结构， 避免使用遍历的方式来找到 minDistanceNodeUnlocked
      */
 
-    static class Node{
-        int val;
-        List<Edge> edges;
+    // 小根堆，每次O(logn)的复杂度找到当前距离最小的节点
+    static class NodesHeap{
 
-        public Node(int val){
-            this.val=val;
-            this.edges =new ArrayList<Edge>();
-        }
-    }
+        public GraphNode[] nodes;
+        public HashMap<GraphNode, Integer> nodesIdxMap;
+        public HashMap<GraphNode,Integer> distanceMap;
+        public int size;
 
-    static class Edge{
-        Node from;
-        Node to;
-        int weight;
-        public Edge(Node fromNode,Node toNode,int weight){
-            this.from = fromNode;
-            this.to =toNode;
-            this.weight=weight;
-        }
-    }
-
-    public int findShortestPath (int n, int m, int[][] graph) {
-        // 二维数组转图结构
-        ArrayList<Node> graphNodes = new ArrayList<Node>();
-        for(int i=1;i<=n;i++){
-            graphNodes.add(new Node(i));
+        public NodesHeap(int size){
+            nodes =new GraphNode[size];
+            nodesIdxMap =new HashMap<>();
+            distanceMap =new HashMap<>();
+            size=0;
         }
 
-        for(int i=0;i<graph.length;i++){
-            int from = graph[i][0];
-            int to = graph[i][1];
-            int weight = graph[i][2];
-
-            Node fromNode = graphNodes.get(from - 1);
-            Node toNode = graphNodes.get(to - 1);
-
-            Edge edge = new Edge(fromNode,toNode,weight);
-            fromNode.edges.add(edge);
+        public boolean isEmpty(){
+            return size==0;
         }
 
-        // dijkstra 算法
-        HashMap<Node,Integer> distanceMap = new HashMap<Node,Integer>();
-        distanceMap.put(graphNodes.get(0),0);
+        public boolean isTraersed(GraphNode node){
+            return nodesIdxMap.containsKey(node);
+        }
 
-        HashSet<Node> lockedNodes = new HashSet<Node>();
+        public boolean isInHeap(GraphNode node){
+            return nodesIdxMap.containsKey(node) && nodesIdxMap.get(node)!=-1;
+        }
 
-        Node curNode=graphNodes.get(0);
-        while(curNode!=null){
-            int  minDistance=distanceMap.get(curNode);
-            for(Edge e:curNode.edges){
 
-                if(!distanceMap.containsKey(e.to)){
-                    distanceMap.put(e.to,minDistance+e.weight);
-                }else{
-                    distanceMap.put(e.to,Math.min(minDistance+e.weight,distanceMap.get(e.to)));
+        public void swap(int idx1,int idx2){
+            nodesIdxMap.put(nodes[idx1],idx2);
+            nodesIdxMap.put(nodes[idx2],idx1);
+
+            GraphNode tmp = nodes[idx1];
+            nodes[idx1]=nodes[idx2];
+            nodes[idx2]=tmp;
+
+        }
+
+        public void addOrUpdateOrIgnore(GraphNode node, int newDistance){
+            if(isInHeap(node)){
+                Integer oldDistance = distanceMap.get(node);
+                if(oldDistance>newDistance){
+                    distanceMap.put(node,newDistance);
+                    // 由于node的distance值是变小了，因此使用heapInsert方法将该node的值向上调整
+                    heapInsert(node,nodesIdxMap.get(node));
                 }
-            }
-
-            lockedNodes.add(curNode);
-
-            curNode = findMinDistanceUnlockedNode(distanceMap,lockedNodes);
-        }
-        Node lastNode = graphNodes.get(n - 1);
-        return distanceMap.get(lastNode);
-    }
-
-    private Node findMinDistanceUnlockedNode(HashMap<Node,Integer> distanceMap,HashSet<Node> lockedNodes){
-        Node minDistanceUnlockedNode=null;
-        int minDistance = Integer.MAX_VALUE;
-        for(Map.Entry<Node,Integer> e:distanceMap.entrySet()){
-            if(!lockedNodes.contains(e.getKey()) && minDistance>e.getValue() ){
-                minDistance =e.getValue();
-                minDistanceUnlockedNode =e.getKey();
+            }else if (!isTraersed(node)){
+                nodes[size]=node;
+                nodesIdxMap.put(node,size);
+                distanceMap.put(node,newDistance);
+                // 由于[0,size-1]已经是一个最小堆了，使用heapInsert方法将第size个node也加入到小根堆中
+                heapInsert(node,size);
+                size++;
             }
         }
-        return minDistanceUnlockedNode;
+
+        private void heapInsert(GraphNode node, Integer childIdx) {
+            int parentIdx = (childIdx-1)/2;
+            while(parentIdx>0&&distanceMap.get(nodes[parentIdx])>distanceMap.get(nodes[childIdx])){
+                swap(parentIdx,childIdx);
+                childIdx=parentIdx;
+                parentIdx= (parentIdx-1)/2;
+            }
+        }
+        
+        public Record pop(){
+            if(isEmpty()){
+               return null; 
+            }
+            
+            swap(0,size-1);
+            GraphNode nodePoped = nodes[size - 1];
+            Record res = new Record(nodePoped, distanceMap.get(nodePoped));
+            distanceMap.remove(nodePoped);
+            nodesIdxMap.put(nodePoped,-1);
+            nodes[size-1]=null;// gc help
+            size--;
+            // 由于[1,size]已经是一个小根堆了，使用heapify方法将第0个node 加入到小根堆中
+            heapify(0);
+            return res;
+        }
+
+
+        private void heapify(int parentIdx) {
+
+            int leftChildIdx = parentIdx*2+1;
+            while(leftChildIdx<this.size){
+                int minChildIdx = leftChildIdx+1>=size?leftChildIdx:
+                        distanceMap.get(nodes[leftChildIdx])<distanceMap.get(nodes[leftChildIdx+1])?leftChildIdx:leftChildIdx+1;
+                if(distanceMap.get(nodes[minChildIdx])>=distanceMap.get(nodes[parentIdx])){
+                    break;
+                }
+                swap(parentIdx,minChildIdx);
+                parentIdx=minChildIdx;
+                leftChildIdx=minChildIdx*2+1;
+            }
+        }
     }
 
-    @Test
-    public void test1(){
+    static class Record{
+        GraphNode node;
+        int distance;
+        public Record(GraphNode node,int distance){
+            this.node=node;
+            this.distance=distance;
+        }
+    }
 
-        int[][] graph = new int[1][3];
-        graph[0]=new int[]{1,2,4};
+    public Map<GraphNode,Integer> dijkstra2(GraphNode startNode,int n){
 
-        int shortestPath = findShortestPath(2, 1, graph);
-        System.out.println(shortestPath);
+        HashMap<GraphNode, Integer> res = new HashMap<>();
+        NodesHeap nodesHeap = new NodesHeap(n);
+        nodesHeap.addOrUpdateOrIgnore(startNode,0);
+
+        while(!nodesHeap.isEmpty()){
+            Record record = nodesHeap.pop();
+            res.put(record.node,record.distance);
+            for (GraphEdge edge : record.node.edges) {
+                nodesHeap.addOrUpdateOrIgnore(edge.to,edge.weight+record.distance);
+            }
+        }
+        return res;
     }
 
 

@@ -36,7 +36,9 @@ public class QuickSort {
     }
 
     /**
-     * 该M方法将 left~ right分为三部分，[left,m） : 小于target的部分； [m,n] : 等于target的部分； (n,right] :  大于target的部分
+     * 该M方法将 left~ right分为三部分，[left,m） :  小于target的部分；
+     *                              [m,n]     :  等于target的部分；
+     *                              (n,right] :  大于target的部分
      * 返回 等于target部分的左边界和右边界
      * @param arr
      * @param left
