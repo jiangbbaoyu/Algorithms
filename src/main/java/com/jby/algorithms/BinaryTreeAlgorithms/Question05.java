@@ -450,7 +450,7 @@ public class Question05 {
 
 
 }
-public class TreeLinkNode {
+class TreeLinkNode {
     int val;
     TreeLinkNode left = null;
     TreeLinkNode right = null;

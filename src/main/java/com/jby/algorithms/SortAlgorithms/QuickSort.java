@@ -54,7 +54,7 @@ public class QuickSort {
         int m =left;
         int n= right;
 
-        while(i<=n){
+        while(i<=n){  // 第n个元素不一定是等于target的值，因此当i==n时也需要进入循环进行处理
             if (arr[i]==target){
                 i++;
             }else if (arr[i]<target){
