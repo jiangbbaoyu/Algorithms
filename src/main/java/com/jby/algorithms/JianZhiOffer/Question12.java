@@ -88,9 +88,11 @@ public class Question12 {
 
     @Test
     public void test(){
-        System.out.println('a'-0);
-        System.out.println('z'-0);
-        System.out.println('A'-0);
-        System.out.println('Z'-0);
+//        System.out.println('a'-0);
+//        System.out.println('z'-0);
+//        System.out.println('A'-0);
+//        System.out.println('Z'-0);
+
+        System.out.println(Integer.MAX_VALUE);
     }
 }
