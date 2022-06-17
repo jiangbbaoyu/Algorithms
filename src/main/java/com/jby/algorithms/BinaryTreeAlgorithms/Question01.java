@@ -289,7 +289,7 @@ public class Question01 {
         return res;
     }
 
-    // 方法2
+    // 方法2 ， 效率高
     public List<List<Integer>> levelOrder2(TreeNode root) {
         if(root==null){
             return new ArrayList();
@@ -297,33 +297,31 @@ public class Question01 {
         ArrayList<List<Integer>> res= new ArrayList<List<Integer>>();
         LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
         queue.addFirst(root);
-        HashMap<TreeNode,Integer> nodeLevelMap = new HashMap<TreeNode,Integer>();// 记录节点与其对应的level
-        nodeLevelMap.put(root,1);
-
 
         ArrayList curLevelData = new ArrayList<Integer>();
-        int curLevel =1;
+        int toPrint =1; // 当前层要打印的节点数
+        int nextLevelNum =0;  // 下一层要打印的节点数
         while(!queue.isEmpty()){
             TreeNode node = queue.removeLast();
-            int level = nodeLevelMap.get(node);
-            if(level>=curLevel){
-                curLevel++;
-                res.add(curLevelData);
-                curLevelData=new ArrayList<Integer>();
-            }
             curLevelData.add(node.val);
+            toPrint--; // 每打印一个，当前层要打印的节点数减一
 
             if(node.left!=null){
                 queue.addFirst(node.left);
-                nodeLevelMap.put(node.left,level+1);
+                nextLevelNum++; // 每添加一个节点到队列，下一层要打印的节点数加一
             }
             if(node.right!=null){
                 queue.addFirst(node.right);
-                nodeLevelMap.put(node.right,level+1);
+                nextLevelNum++;// 每添加一个节点到队列，下一层要打印的节点数加一
+            }
+
+            if(toPrint==0){// 当前层要打印的节点数为0了，切换到下一层
+                toPrint = nextLevelNum;
+                nextLevelNum =0;
+                res.add(curLevelData);
+                curLevelData=new ArrayList<Integer>();
             }
         }
-
-        res.add(curLevelData); //添加最后一层
 
         return res;
     }
