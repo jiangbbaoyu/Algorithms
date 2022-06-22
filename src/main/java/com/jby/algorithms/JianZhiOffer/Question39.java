@@ -47,11 +47,10 @@ public class Question39 {
 
         while(mid>bounds[1]|| mid<bounds[0]){
             if(mid>bounds[1]){
-                start= bounds[1]>=nums.length?nums.length:bounds[1];
+                start= bounds[1]+1;
             }else if (mid<bounds[0]){
-                end =bounds[0]<=0?0:bounds[0];
+                end =bounds[0]-1;
             }
-            mid = start + ((end-start)>>1);
             targetIdx = start + (int)(Math.random()*(end-start+1));
             bounds = partition(nums,start,end,targetIdx);
         }
