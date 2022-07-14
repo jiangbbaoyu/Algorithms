@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.LinkedList;
 
 /**
- * leetcode 234 回文链表问题
+ * leetcode 234 回文链表问题  （可不可以修改源链表的值）
  */
 public class Question02 {
 
