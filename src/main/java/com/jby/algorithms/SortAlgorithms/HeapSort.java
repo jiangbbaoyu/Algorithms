@@ -58,20 +58,20 @@ public class HeapSort {
     /**
      * 从 parent开始，调整以parent为root的堆为大根堆 ，O(N*logN)
      * @param arr
-     * @param parent
-     * @param heapSize  exclusive ：之前已经将heapSize位置的元素swap到了heap[0]，因此heapSize位置不作为堆的一部分了
+     * @param parentIdx
+     * @param heapSizeExclusive  exclusive ：之前已经将heapSize位置的元素swap到了heap[0]，因此heapSize位置不作为堆的一部分了
      */
-    private void heapify(int[] arr, int parent, int heapSize) {
+    private void heapify(int[] arr, int parentIdx, int heapSizeExclusive) {
 
-        int leftChild = parent*2 +1;
+        int leftChildIdx = parentIdx*2 +1;
 
-        while (leftChild<heapSize){
+        while (leftChildIdx<heapSizeExclusive){
 
-            int maxChild = leftChild+1<heapSize && arr[leftChild]<arr[leftChild+1]? leftChild+1:leftChild;
-            if (arr[parent]<arr[maxChild]){
-                NumberUtils.swap(arr,parent,maxChild);
-                parent = maxChild;
-                leftChild = parent*2 + 1;
+            int maxChildIdx = leftChildIdx+1<heapSizeExclusive && arr[leftChildIdx]<arr[leftChildIdx+1]? leftChildIdx+1:leftChildIdx;
+            if (arr[parentIdx]<arr[maxChildIdx]){
+                NumberUtils.swap(arr,parentIdx,maxChildIdx);
+                parentIdx = maxChildIdx;
+                leftChildIdx = parentIdx*2 + 1;
             }else{
                 break;
             }

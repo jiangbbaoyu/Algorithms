@@ -34,6 +34,7 @@ public class Question51 {
         int k= left;
         int i=left;
         int j=mid+1;
+        // 从大到小排序
         while(i<=mid && j<=right){
             if(nums[i]>nums[j]){
                 count += (right-j+1);
@@ -42,6 +43,16 @@ public class Question51 {
                 tmpNums[k++] =nums[j++];
             }
         }
+
+        // 从小到大排序
+//        while(i<=mid && j<=right){
+//            if(nums[i]>nums[j]){
+//                count += (mid-i+1);
+//                tmpNums[k++] =nums[j++];
+//            }else{
+//                tmpNums[k++] =nums[i++];
+//            }
+//        }
 
         while(i<=mid){
             tmpNums[k++] =nums[i++];

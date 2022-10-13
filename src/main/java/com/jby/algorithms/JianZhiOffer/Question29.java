@@ -1,7 +1,7 @@
 package com.jby.algorithms.JianZhiOffer;
 
 /**
- * 剑指 Offer 29. 顺时针打印矩阵
+ * 剑指 Offer 29. 顺时针打印矩阵 （螺旋矩阵）
  * 输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
  */
 public class Question29 {

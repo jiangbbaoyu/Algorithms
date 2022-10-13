@@ -13,7 +13,7 @@ public class Question26 {
             return false;
         }
 
-        if(A.val==B.val){
+        if(A.val==B.val){ // 先序遍历
             if(check(A,B)){
                 return true;
             }

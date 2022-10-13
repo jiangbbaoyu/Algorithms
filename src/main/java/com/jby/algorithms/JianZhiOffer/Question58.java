@@ -37,19 +37,19 @@ public class Question58 {
         // 3. 每个单词反转 （滑动窗口）
         int left=0;
         int right=0;
-        for(;right<=chars.length;){
+        while (right <= chars.length) {
+            // reverse last word
+            if (right == chars.length) {
+                reverse(chars, left, right - 1);
+                break;
+            }
 
-            if(right==chars.length ||chars[right]==' ' ){
-                if(left == right){
-                    left ++;
-                    right ++;
-                }else{
-                    reverse(chars,left,right-1);
-                    right++;
-                    left = right;
-                }
-            }else{
+            if (chars[right] != ' ') {
                 right++;
+            } else if (chars[right] == ' ') {
+                reverse(chars, left, right - 1);
+                right = right + 1;
+                left = right;
             }
         }
 
@@ -57,13 +57,6 @@ public class Question58 {
     }
 
     private void reverse(char[] chars ,int left,int right){
-
-        // for(int i=left;i<=left+(right-left)/2;i++){
-        //     char tmp= chars[i];
-        //     chars[i] = chars[right-(i-left)];
-        //     chars[right-(i-left)] =tmp;
-        // }
-
         while(left<right){
             char tmp= chars[left];
             chars[left] = chars[right];

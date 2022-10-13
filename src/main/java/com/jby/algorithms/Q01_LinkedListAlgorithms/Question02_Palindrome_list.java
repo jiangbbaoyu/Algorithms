@@ -1,4 +1,4 @@
-package com.jby.algorithms.LinkedListAlgorithms;
+package com.jby.algorithms.Q01_LinkedListAlgorithms;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.LinkedList;
 /**
  * leetcode 234 回文链表问题  （可不可以修改源链表的值）
  */
-public class Question02 {
+public class Question02_Palindrome_list {
 
     /**
      * 解法1 ：使用栈存放右半段的元素，空间复杂度O(N)
@@ -45,49 +45,38 @@ public class Question02 {
      * @param head
      * @return
      */
-    public boolean isPalindrome2(ListNode head) {
+    public boolean isPalindrome3(ListNode head) {
         ListNode fast = head;
         ListNode slow = head;
 
-        // 1. 使用快慢指针找到链表右半段的第一个节点
-        while(fast.next!=null && fast.next.next!=null){
-            slow=slow.next;
-            fast=fast.next.next;
+        // 1. 使用快慢指针找到链表右半段的前1个节点
+        while(fast != null && fast.next!=null && fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        slow =slow.next; //指向链表右半段（如果链表有奇数个元素，不包含中间元素）的第一个节点
+        reverseRightPart(slow); // 2. 基于头插法反转 右侧部分
+        ListNode firstRightPartNode = slow.next;
 
-        // 2. 反转右半段的链表
-        slow=reverse(slow);
-
-        //3. 左半段的链表与反转后的右半段的链表逐个比较元素值
-        while (slow!=null && head.next!=null){
-            if (slow.val!=head.val){
+        while(head!=null && firstRightPartNode!=null){  //3. 左半段的链表与反转后的右半段的链表逐个比较元素值
+            if(head.val!= firstRightPartNode.val){
                 return false;
             }
-            slow=slow.next;
-            head=head.next;
+            head =head.next;
+            firstRightPartNode=firstRightPartNode.next;
         }
         return true;
     }
 
-    private ListNode reverse(ListNode slow) {
+    private void reverseRightPart(ListNode pre){
+        ListNode cur = pre.next;
+        pre.next =null; //pre node 与后面的节点断开
 
-        if(slow==null|| slow.next==null){
-            return slow;
+        while(cur!=null){
+            ListNode next = cur.next;
+            cur.next = pre.next;
+            pre.next = cur;
+            cur = next;
         }
-        ListNode pre = null;
-        ListNode cur = slow;
-        ListNode next = cur.next;
-
-        while (next!=null){
-            cur.next=pre;
-            pre=cur;
-            cur=next;
-            next=next.next;
-        }
-        cur.next=pre;
-
-        return cur;
     }
 
     @Test
@@ -108,12 +97,12 @@ public class Question02 {
         ListNode node4 = new ListNode(2);
         ListNode node5 = new ListNode(1);
         node1.next=node2;
-        node2.next=node3;
-        node3.next=node4;
-        node4.next=node5;
-        node5.next=null;
+//        node2.next=node3;
+//        node3.next=node4;
+//        node4.next=node5;
+//        node5.next=null;
 
-        System.out.println(isPalindrome(node1));
+        System.out.println(isPalindrome3(node1));
     }
 
     @Test
@@ -139,6 +128,6 @@ public class Question02 {
         node4.next=node5;
         node5.next=null;
 
-        System.out.println(isPalindrome2(node1));
+        System.out.println(isPalindrome3(node1));
     }
 }

@@ -1,11 +1,11 @@
-package com.jby.algorithms.LinkedListAlgorithms;
+package com.jby.algorithms.Q01_LinkedListAlgorithms;
 
 import org.junit.Test;
 
 /**
- * 环形链表相关问题
+ * 环形链表相关问题， 链表相交问题
  */
-public class Question05 {
+public class Question05_list_cycle_intersection {
 
     /**
      * leetcode 141 环形链表
@@ -159,7 +159,7 @@ public class Question05 {
                 }
                 return currA;
             }else{
-                //2.2 两个链表中的环是同一个，且入环节点不是同一个
+                //2.2 入环节点不是同一个, 但两个链表中的环是同一个
                 ListNode curr =intersectionNodeA.next;
                 while(curr!=intersectionNodeA){
                     if (curr==intersectionNodeB){

@@ -1,6 +1,6 @@
 package com.jby.algorithms.JianZhiOffer;
 
-import com.jby.algorithms.LinkedListAlgorithms.ListNode;
+import com.jby.algorithms.Q01_LinkedListAlgorithms.ListNode;
 
 /**
  * 剑指 Offer 52. 两个链表的第一个公共节点 (无环链表)

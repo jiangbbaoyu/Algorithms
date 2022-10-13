@@ -30,7 +30,7 @@ public class Question34 {
 
         dfs(node.left,res,tmpRes,currSum,target);
         dfs(node.right,res,tmpRes,currSum,target);
-        tmpRes.remove(tmpRes.size()-1);
+        tmpRes.remove(tmpRes.size()-1); // 该节点及其子节点访问完成后，从路径上移除该节点
 
     }
 }

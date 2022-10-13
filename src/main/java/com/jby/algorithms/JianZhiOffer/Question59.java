@@ -84,7 +84,7 @@ public class Question59 {
             dataQ.addFirst(value);
 
             while(!maxQ.isEmpty() && value > maxQ.getFirst()){
-                maxQ.removeFirst();
+                maxQ.removeLast();
 
             }
             maxQ.addFirst(value);

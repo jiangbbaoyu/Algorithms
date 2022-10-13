@@ -1,11 +1,10 @@
 package com.jby.algorithms.JianZhiOffer;
 
-import com.jby.algorithms.LinkedListAlgorithms.ListNode;
-import com.jby.algorithms.LinkedListAlgorithms.ListNode2;
+import com.jby.algorithms.Q01_LinkedListAlgorithms.ListNode;
 import org.junit.Test;
 
 /**
- * O(1)时间内删除链表中的一个节点
+ * O(1)时间内删除链表中的一个节点 (给定的节点 node 可能是链表中的最后一个节点)
  */
 public class Question18 {
 

@@ -45,6 +45,7 @@ public class MergeSortQuestion03 {
         int j= middle+1;
         int k = left;
 
+        // 从大到小排序
         while(i<=middle && j<= right){
             if(nums[i]>nums[j]){
                 res += (right-j+1);
@@ -53,6 +54,16 @@ public class MergeSortQuestion03 {
                 tempNums[k++] = nums[j++];
             }
         }
+
+        // 从小到大排序
+//        while(i<=middle && j<= right){
+//            if(nums[i]>nums[j]){
+//                res += (middle-i+1);
+//                tempNums[k++] = nums[j++];
+//            }else{
+//                tempNums[k++] = nums[i++];
+//            }
+//        }
 
         while(i<=middle){
             tempNums[k++] = nums[i++];

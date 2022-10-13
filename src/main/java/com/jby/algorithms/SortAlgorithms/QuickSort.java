@@ -47,7 +47,6 @@ public class QuickSort {
      * @return
      */
     private int[] partition(int[] arr, int left, int right, int randIdx) {
-
         int target = arr[randIdx];
 
         int i=left;

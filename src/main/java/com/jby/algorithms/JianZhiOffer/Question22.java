@@ -1,6 +1,6 @@
 package com.jby.algorithms.JianZhiOffer;
 
-import com.jby.algorithms.LinkedListAlgorithms.ListNode;
+import com.jby.algorithms.Q01_LinkedListAlgorithms.ListNode;
 
 /**
  * 剑指 Offer 22. 链表中倒数第k个节点
@@ -22,6 +22,7 @@ public class Question22 {
             fast =fast.next;
             i++;
         }
+        if(i<k) return null; // 防止出现k 大于 链表节点个数的情况
 
         ListNode slow = head;
         while(fast!=null){

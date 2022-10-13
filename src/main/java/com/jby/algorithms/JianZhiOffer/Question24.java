@@ -1,6 +1,6 @@
 package com.jby.algorithms.JianZhiOffer;
 
-import com.jby.algorithms.LinkedListAlgorithms.ListNode;
+import com.jby.algorithms.Q01_LinkedListAlgorithms.ListNode;
 
 /**
  * 剑指 Offer 24. 反转链表

@@ -1,8 +1,8 @@
-package com.jby.algorithms.StringAlgorithms;
+package com.jby.algorithms.Q02_stringAlgorithms;
 
 import org.junit.Test;
 
-public class Question01 {
+public class Question01_strToInt {
 
     /**
      * leetcode 8. 字符串转换整数 (atoi)

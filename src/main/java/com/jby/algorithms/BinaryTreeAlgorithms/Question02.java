@@ -1,6 +1,6 @@
 package com.jby.algorithms.BinaryTreeAlgorithms;
 
-import com.jby.algorithms.LinkedListAlgorithms.ListNode;
+import com.jby.algorithms.Q01_LinkedListAlgorithms.ListNode;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -263,7 +263,7 @@ public class Question02 {
         if(head==null) {
             return null;
         }
-        if(head.next==null){ // 对于本段链表只有一个节点的场景，直接创建一个TreeNode并返回即可
+        if(head.next==null){ // 对于本段链表只有一个节点的场景，直接创建一个TreeNode （叶子节点）并返回即可
             return new TreeNode(head.val);
         }
 
@@ -277,7 +277,10 @@ public class Question02 {
 
     private ListNode findMidNode(ListNode head){
 
-        ListNode midPre = null; // 记录中间节点的前一个节点
+        ListNode dummyNode = new ListNode();
+        dummyNode.next = head;
+
+        ListNode midPre = dummyNode; // 记录中间节点的前一个节点
         ListNode slow = head;
         ListNode fast = head;
         while(fast!=null && fast.next!=null){

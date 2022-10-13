@@ -1,4 +1,4 @@
-package com.jby.algorithms.LinkedListAlgorithms;
+package com.jby.algorithms.Q01_LinkedListAlgorithms;
 
 import org.junit.Test;
 
@@ -6,7 +6,7 @@ import org.junit.Test;
  * leetcode 86 分隔链表
  * 给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。
  */
-public class Question03 {
+public class Question03_partition_list {
 
     /**
      * 使用四个指针维护小于x元素、大于等于x元素构成的两个链表的首尾指针， 构造两个链表后，将这两个链表连接起来即可

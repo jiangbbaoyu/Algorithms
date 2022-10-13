@@ -6,9 +6,11 @@ import java.util.LinkedList;
  * 剑指 Offer 09. 用两个栈实现队列
  * 用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead ，分别完成在队列尾部插入整数和在队列头部删除整数的功能。
  * 若队列中没有元素，deleteHead 操作返回 -1
- * 思路： appendTail 写入stack1,  deleteHead 从stack2中删除；
- *       stack2中如果没有元素，则将stack1中的元素pop,然后push到stack2中， 此时stack2中的元素是与push顺序相反的，越早push的元素越靠上，因此从stack2中pop元素时满足队列元素出队的特点
- *
+ * 思路：
+ *       appendTail 向stackToAdd中添加元素
+ *       deleteHead 从stackDeleteFrom中删除；
+ *       stackDeleteFrom中如果没有元素，则将stackToAdd中的全部元素pop,然后push到stackToRemove中，
+ *       此时stackToRemove中的元素是与push顺序相反的，，因此从stackToRemove中pop元素时满足队列元素出队的特点
  */
 public class Question09 {
 
@@ -35,7 +37,6 @@ public class Question09 {
                 return -1;
             }
             return stackDeleteFrom.removeFirst();
-
         }
     }
 

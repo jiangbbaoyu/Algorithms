@@ -1,4 +1,4 @@
-package com.jby.algorithms.LinkedListAlgorithms;
+package com.jby.algorithms.Q01_LinkedListAlgorithms;
 
 import java.util.HashMap;
 
@@ -18,7 +18,7 @@ class Node {
  * leetcode 138. 复制带随机指针的链表
  * 给你一个长度为 n 的链表，每个节点包含一个额外增加的随机指针 random ，该指针可以指向链表中的任何节点或空节点。构造这个链表的 深拷贝。
  */
-public class Question04 {
+public class Question04_copyRandomList {
 
     /**
      * 解法1： 使用额外空间 空间复杂度O(N),时间复杂度O(N)
@@ -68,7 +68,7 @@ public class Question04 {
         curr=head;
         while(curr!=null){
             Node currCopy = curr.next;
-            currCopy.random=curr.random!=null?curr.random.next:null;//维护新添加节点的random指针
+            currCopy.random=curr.random!=null?curr.random.next:null;//维护新添加节点的random指针, random指针可能为null
 
             curr=currCopy.next;
         }

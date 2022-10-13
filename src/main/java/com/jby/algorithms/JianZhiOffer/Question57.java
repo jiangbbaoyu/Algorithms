@@ -40,7 +40,7 @@ public class Question57 {
      * 输入一个正整数 target ，输出所有和为 target 的 连续正整数 序列（至少含有两个数）。
      * 序列内的数字由小到大排列，不同序列按照首个数字从小到大排列
      *
-     * 思路： 双指针 构成的一个滑动窗口， 两个指针都是只能向右滑动
+     * 思路： 双指针 构成的一个滑动窗口， ``两个指针都是只能向右滑动``
      */
     public int[][] findContinuousSequence(int target) {
 
@@ -50,6 +50,7 @@ public class Question57 {
 
         List<int[]> resTmp = new ArrayList<int[]>();  // int[] 为引用类型 , 可以作为泛型的参数
 
+        // left 和right 指针均只能向右移动，不能向左移动
         int left =1;
         int right =2;
         int sum = left+right;  // sum 维护了 当前窗口包含的数字之和， 当窗口边界改变时动态改变该sum的值

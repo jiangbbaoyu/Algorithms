@@ -1,4 +1,4 @@
-package com.jby.algorithms.LinkedListAlgorithms;
+package com.jby.algorithms.Q01_LinkedListAlgorithms;
 
 
 //Definition for singly-linked list.

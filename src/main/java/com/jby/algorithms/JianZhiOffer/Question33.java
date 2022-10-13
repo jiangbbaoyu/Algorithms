@@ -30,19 +30,6 @@ public class Question33 {
             }
         }
         // 此时满足前部分元素值均小于后部分元素值 ，j指向前半部分的最后一个， i指向右半部分的第一个
-
-//        int pivot =start;
-//        boolean findGreater =false;
-//        for(int i=start;i<=end-1;i++){
-//            if(postorder[i]>rootVal && !findGreater){
-//                findGreater=true;
-//                pivot = i;
-//            }
-//            if (findGreater && postorder[i]<rootVal){
-//                return false;
-//            }
-//        }
-
         return  verify(postorder,start,j) && verify(postorder,i,end-1);
     }
 }

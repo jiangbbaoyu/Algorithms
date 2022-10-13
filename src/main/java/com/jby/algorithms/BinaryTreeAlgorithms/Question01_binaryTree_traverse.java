@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 二叉树遍历相关 （ 前序/深度，中序，后序，层序/宽度 ,）
  */
-public class Question01 {
+public class Question01_binaryTree_traverse {
 
 
     /**
@@ -41,7 +41,6 @@ public class Question01 {
         List<Integer> res=new ArrayList<Integer>();
         LinkedList<TreeNode> stack =new LinkedList<TreeNode>();
         if(root!=null){
-//            stack.push(root);
             stack.addFirst(root);
         }
 
@@ -203,7 +202,7 @@ public class Question01 {
 
 
     /**
-     * leetcode 154. 二叉树的后序遍历
+     * leetcode 145. 二叉树的后序遍历
      * @param root
      * @return
      */
@@ -299,25 +298,25 @@ public class Question01 {
         queue.addFirst(root);
 
         ArrayList curLevelData = new ArrayList<Integer>();
-        int toPrint =1; // 当前层要打印的节点数
-        int nextLevelNum =0;  // 下一层要打印的节点数
+        int currLevelToPrint =1; // 当前层要打印的节点数
+        int nextLevelToPrint =0;  // 下一层要打印的节点数
         while(!queue.isEmpty()){
             TreeNode node = queue.removeLast();
             curLevelData.add(node.val);
-            toPrint--; // 每打印一个，当前层要打印的节点数减一
+            currLevelToPrint--; // 每打印一个，当前层要打印的节点数减一
 
             if(node.left!=null){
                 queue.addFirst(node.left);
-                nextLevelNum++; // 每添加一个节点到队列，下一层要打印的节点数加一
+                nextLevelToPrint++; // 每添加一个节点到队列，下一层要打印的节点数加一
             }
             if(node.right!=null){
                 queue.addFirst(node.right);
-                nextLevelNum++;// 每添加一个节点到队列，下一层要打印的节点数加一
+                nextLevelToPrint++;// 每添加一个节点到队列，下一层要打印的节点数加一
             }
 
-            if(toPrint==0){// 当前层要打印的节点数为0了，切换到下一层
-                toPrint = nextLevelNum;
-                nextLevelNum =0;
+            if(currLevelToPrint==0){// 当前层要打印的节点数为0了，切换到下一层
+                currLevelToPrint = nextLevelToPrint;
+                nextLevelToPrint =0;
                 res.add(curLevelData);
                 curLevelData=new ArrayList<Integer>();
             }
@@ -384,15 +383,15 @@ public class Question01 {
         boolean leftToRight=true; // 使用一个变量控制 从左向右还是右向左
         while(!queue.isEmpty()){
             int levelNodesNum = queue.size();
-            int[] levelNodesarr= new int[levelNodesNum];
+            int[] currLevelData= new int[levelNodesNum];
             int count=levelNodesNum;
             while(count>0){
 
                 TreeNode node = queue.removeLast();
                 if(leftToRight){
-                    levelNodesarr[levelNodesNum-count]=node.val; // 数组由前向后写入数据
+                    currLevelData[levelNodesNum-count]=node.val; // 数组由前向后写入数据
                 }else{
-                    levelNodesarr[count-1]=node.val;// 数组由后向前写入数据
+                    currLevelData[count-1]=node.val;// 数组由后向前写入数据
                 }
                 // TODO 此处也可以使用LinkedList 来存放levelNodes , 根据 leftToRight 决定使用addFirst 还是addLast 方法写入数据
 
@@ -406,8 +405,8 @@ public class Question01 {
             }
 
             ArrayList<Integer> levelData = new ArrayList<Integer>();
-            for (int i = 0; i < levelNodesarr.length; i++) {
-                levelData.add(levelNodesarr[i]);
+            for (int i = 0; i < currLevelData.length; i++) {
+                levelData.add(currLevelData[i]);
             }
             res.add(levelData);
 

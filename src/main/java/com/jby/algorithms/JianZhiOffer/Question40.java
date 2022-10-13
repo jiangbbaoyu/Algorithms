@@ -3,7 +3,7 @@ package com.jby.algorithms.JianZhiOffer;
 import java.util.PriorityQueue;
 
 /**
- * 剑指 Offer 40. 最小的k个数
+ * 剑指 Offer 40. 数组中最小的k个数 (最小的第k个数，思路类似)
  * 输入整数数组 arr ，找出其中最小的 k 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4
  */
 public class Question40 {
@@ -79,7 +79,7 @@ public class Question40 {
         if(arr==null|| arr.length==0 || k==0){
             return new int[0];
         }
-
+        // `用大根堆` 保存数组中 `最小的k个数`
         PriorityQueue<Integer>  heap = new PriorityQueue<Integer>((a, b)->b-a);
 
         for(int i=0;i<arr.length;i++){

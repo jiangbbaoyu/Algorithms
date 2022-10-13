@@ -1,83 +1,63 @@
-package com.jby.algorithms.LinkedListAlgorithms;
+package com.jby.algorithms.Q01_LinkedListAlgorithms;
 
 import org.junit.Test;
 
 /**
  * 反转链表
  */
-public class Question01 {
+public class Question01_reverseList {
 
     /**
      * 反转单向链表 leetcode 206 https://leetcode-cn.com/problems/reverse-linked-list/submissions/
-     * 定义三个指针，分别指向当前node,前一个node,后一个node
-     * 由于在反转的时候，需要将当前node的next指向before,因此需要一个after指针提前记录node的next
      * @param head
      * @return
      */
-    public ListNode reverseList(ListNode head) {
-        if(head==null||head.next==null){
-            return head;
-        }
-
-        ListNode before =null;
-        ListNode curr = head; // 当前元素从head开始
-        ListNode after = curr.next;
-        while(after!=null){
-            curr.next=before;
-            before =curr;
-            curr= after;
-            after=after.next;
-        }
-        curr.next=before;
-        return curr; // 返回新的头结点
-    }
-
     // 头插法反转链表
     public ListNode reverseList2(ListNode head) {
-
-        if(head==null||head.next==null){
-            return head;
-        }
-        ListNode dummy =new ListNode(0,head); // 定义一个临时头结点
-        ListNode pre = dummy;
-        ListNode cur = pre.next;
-
+        // if(head==null){
+        //     return null;
+        // }
+        ListNode dummyNode = new ListNode();
+        ListNode cur= head;
         while(cur!=null){
-            ListNode next =cur.next;
+            ListNode next = cur.next;
 
-            cur.next=pre.next; // 将cur头插到pre的后面
-            pre.next=cur;
+            cur.next = dummyNode.next;
+            dummyNode.next = cur;
 
-            cur=next;
+            cur =next;
         }
-        head.next=cur;  // cur 此时为null
 
-        return dummy.next;
+        return dummyNode.next;
     }
 
 
     /**
-     * 反转双向链表
+     * 反转双向链表, 头插法
      */
+
     public ListNode2 reverseList3(ListNode2 head) {
-        if(head==null||head.next==null){
-            return head;
-        }
+//        if(head==null){
+//            return null;
+//        }
 
-        ListNode2 before =null;
-        ListNode2 curr =head;
-        ListNode2 after =curr.next;
+        ListNode2 dummyNode = new ListNode2();
+        ListNode2 cur = head;
 
-        while (after!=null){
-            curr.next=before;
-            curr.before=after;
-            before=curr;
-            curr=after;
-            after=after.next;
+        while(cur!=null){
+            ListNode2 next = cur.next;
+
+            cur.next=dummyNode.next;
+            if(dummyNode.next!=null){
+                dummyNode.before = cur;
+            }
+
+            dummyNode.next = cur;
+            cur.before = dummyNode;
+
+            cur =next;
         }
-        curr.next=before;
-        curr.before=after;
-        return curr;
+        return dummyNode.next;
     }
 
     /**
@@ -135,7 +115,7 @@ public class Question01 {
             cur=cur.next;
         }
         // 此时cur指向第left个节点
-        ListNode firstReverse=cur;
+        ListNode reverseRear=cur;
         for(;i<=right;i++){
             ListNode next = cur.next;
 
@@ -144,7 +124,7 @@ public class Question01 {
             cur=next;
 
         }
-        firstReverse.next=cur; // left个节点的next指向right+1个节点
+        reverseRear.next=cur; // left个节点的next指向right+1个节点
 
         return dummy.next;
     }
