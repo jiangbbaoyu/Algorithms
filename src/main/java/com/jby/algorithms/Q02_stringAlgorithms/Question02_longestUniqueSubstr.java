@@ -6,7 +6,7 @@ public class Question02_longestUniqueSubstr {
     /**
      * 3. 无重复字符的最长子串
      *    给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度
-     *    思路 ： 滑动窗口 + hashmap
+     *    思路 ： 滑动窗口 + hash map
      * @return
      */
     public int lengthOfLongestSubstring(String s) {
@@ -19,7 +19,7 @@ public class Question02_longestUniqueSubstr {
             // 如果当前字符 chars[right] 已经在 [left,right)间存在了，则更新 left的值为 oldCharIdx+1;
             if(charToIdxMap.containsKey(chars[right])){
                 int oldCharIdx = charToIdxMap.get(chars[right]);
-                if(oldCharIdx>= left){
+                if(oldCharIdx >= left){
                     left = oldCharIdx+1;
                 }
             }
