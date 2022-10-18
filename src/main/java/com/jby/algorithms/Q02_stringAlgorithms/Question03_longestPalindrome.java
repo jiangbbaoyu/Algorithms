@@ -2,7 +2,7 @@ package com.jby.algorithms.Q02_stringAlgorithms;
 
 import org.junit.Test;
 
-public class Question03 {
+public class Question03_longestPalindrome {
     /**
      * leetcode 5. 最长回文子串
      * 给你一个字符串 s，找到 s 中最长的回文子串。

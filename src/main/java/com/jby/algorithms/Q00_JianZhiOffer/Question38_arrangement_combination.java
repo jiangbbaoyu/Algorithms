@@ -4,13 +4,14 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 剑指 Offer 38. 字符串的排列
  * 输入一个字符串，打印出该字符串中字符的所有排列。 (注意考虑输入字符串是否包含重复字符,字符的范围 a-z ? A-Z ? 特殊字符？  )
  * 你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
  */
-public class Question38 {
+public class Question38_arrangement_combination {
     public String[] permutation(String s) {
         if(s==null || s.length()==0){
             return new String[0];
@@ -98,6 +99,34 @@ public class Question38 {
         sb.deleteCharAt(sb.length()-1);
         // 2. 长度为length的一个组合中不包含 char[startIdx]
         doCombination(chars,length,startIdx+1,sb,resTmp);
+    }
+
+    /**
+     * leetcode 77. 组合
+     * 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。
+     * 你可以按 任何顺序 返回答案。
+     */
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        doCombine(res,new ArrayList<Integer>(),1,n,k);
+        return res;
+    }
+    private void doCombine(List<List<Integer>> res, List<Integer> curRes, int start,int n,int k){
+        if(curRes.size()==k){
+            ArrayList<Integer> ans = new ArrayList<Integer>();
+            ans.addAll(curRes);
+            res.add(ans);
+            return ;
+        }
+        if(start>n){
+            return;
+        }
+
+        curRes.add(start);
+        doCombine(res,curRes,start+1,n,k);
+        curRes.remove(curRes.size()-1);
+
+        doCombine(res,curRes,start+1,n,k);
     }
 
     @Test

@@ -41,5 +41,36 @@ public class Question02_validBracketsSeq {
         return false;
     }
 
+    /**
+     * leetcode 1614. 括号的最大嵌套深度
+     *
+     * depth("") = 0
+     * depth(C) = 0，其中 C 是单个字符的字符串，且该字符不是 "(" 或者 ")"
+     * depth(A + B) = max(depth(A), depth(B))，其中 A 和 B 都是 有效括号字符串
+     * depth("(" + A + ")") = 1 + depth(A)，其中 A 是一个 有效括号字符串
+     * 例如：""、"()()"、"()(()())" 都是 有效括号字符串（嵌套深度分别为 0、1、2），而 ")(" 、"(()" 都不是 有效括号字符串 。
+     *
+     * 给你一个 有效括号字符串 s，返回该字符串的 s 嵌套深度 。
+     * 输入：s = "(1+(2*3)+((8)/4))+1"
+     * 输出：3
+     * 解释：数字 8 在嵌套的 3 层括号中。
+     */
+    public int maxDepth(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        int maxDepth=0;
+        char[] chars = s.toCharArray();
+        for(int i=0;i<chars.length;i++){
+            char c = chars[i];
+            if(c=='('){
+                stack.push(c);
+                if(stack.size()>maxDepth){
+                    maxDepth = stack.size();
+                }
+            }else if(c==')'){
+                stack.pop();
+            }
+        }
 
+        return maxDepth;
+    }
 }

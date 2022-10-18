@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class Question09_longestIncSequence {
     /**
-     * leetcode 300. 最长递增子序列
+     * leetcode 300. 最长递增子序列 (hard)
      * 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
      * 子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。
      * 例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列
@@ -93,6 +93,34 @@ public class Question09_longestIncSequence {
 
         return maxLen+1;
     }
+
+    /**
+     * leetcode 674. 最长 `连续`  递增序列
+     * 给定一个未经排序的整数数组，找到最长且 连续递增的子序列，并返回该序列的长度。
+     * 连续递增的子序列 可以由两个下标 l 和 r（l < r）确定，
+     * 如果对于每个 l <= i < r，都有 nums[i] < nums[i + 1] ，
+     * 那么子序列 [nums[l], nums[l + 1], ..., nums[r - 1], nums[r]] 就是连续递增子序列。
+     */
+    public int findLengthOfLCIS(int[] nums) {
+
+        int prev =0;
+        int cur =1;
+        int curLen=1;
+        int maxLen=1;
+        while(cur<nums.length){
+            if(nums[cur]>nums[prev]){
+                curLen++;
+                maxLen =curLen>maxLen?curLen:maxLen;
+            }else{
+                curLen=1;
+            }
+            prev++;
+            cur++;
+        }
+
+        return maxLen;
+    }
+
 
     @Test
     public void test(){
