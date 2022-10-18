@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Question59 {
     /**
-     * 剑指 Offer 59 - I. 滑动窗口的最大值
+     * 剑指 Offer 59 - I. 滑动窗口的最大值   (leetcode 239. 滑动窗口最大值)
      * 给定一个数组 nums 和滑动窗口的大小 k，请找出所有滑动窗口里的最大值。
      *
      * 示例:

@@ -11,7 +11,6 @@ public class Question07_minCoverSubString {
      * 如果 s 中存在这样的子串，我们保证它是唯一的答案
      *
      * 思路： 使用滑动窗口 + hashMap
-     *
      */
     public String minWindow(String s, String t) {
         char[] sChars = s.toCharArray();
