@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * 调用 min、push 及 pop 的时间复杂度都是 O(1)
  * 思路 : 使用一个存放min值的辅助栈
  */
-public class Question30 {
+public class Question30_minStack {
     class MinStack {
         LinkedList<Integer> stack ;
         LinkedList<Integer>  minStack;
