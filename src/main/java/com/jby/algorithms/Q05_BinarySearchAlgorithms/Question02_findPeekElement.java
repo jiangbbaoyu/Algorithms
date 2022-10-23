@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-public class Question02 {
+public class Question02_findPeekElement {
 
     /**
      * leetcode 162 : https://leetcode-cn.com/problems/find-peak-element 局部最大值，最小值问题

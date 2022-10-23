@@ -129,6 +129,109 @@ public class Question38_arrangement_combination {
         doCombine(res,curRes,start+1,n,k);
     }
 
+    /**
+     * leetcode 78. 子集
+     * 给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。
+     * 解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。
+     * 示例 1：
+     * 输入：nums = [1,2,3]
+     * 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+     */
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>>  res  = new ArrayList<>();
+        getSubSets(res, nums,0, new ArrayList<Integer>());
+        return res;
+    }
+    private void getSubSets(List<List<Integer>>  res, int[] nums, int startIdx,List<Integer> cur){
+        if(startIdx==nums.length){
+            List<Integer> ans = new ArrayList<Integer>();
+            ans.addAll(cur);
+            res.add(ans);
+            return;
+        }
+        // 结果中不包含 nums[startIdx]
+        getSubSets(res,nums,startIdx+1,cur);
+
+        // 结果中包含 nums[startIdx]
+        cur.add(nums[startIdx]);
+        getSubSets(res,nums,startIdx+1,cur);
+        cur.remove(cur.size()-1);
+    }
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>>  res = new ArrayList<>();
+        combine(res,new ArrayList<Integer>(),0,0, candidates,target);
+
+        return res;
+    }
+
+    /**
+     * leetcode 39. 组合总和
+     *  给你一个 `无重复元素` 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合
+     *  并以列表形式返回。你可以按 任意顺序 返回这些组合。
+     *  candidates 中的 `同一个数字可以 无限制重复被选取` 。如果至少一个数字的被选数量不同，则两种组合是不同的。
+     *
+     * 输入：candidates = [2,3,6,7], target = 7
+     * 输出：[[2,2,3],[7]]
+     * 解释：
+     * 2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
+     * 7 也是一个候选， 7 = 7 。
+     *
+     */
+    private void combine(List<List<Integer>> res,List<Integer> cur,int curSum,int startIdx, int[] candidates, int target){
+        if(curSum==target){
+            res.add(new ArrayList<Integer>(cur));
+            return;
+        }
+        if(curSum>target){
+            return;
+        }
+        if(startIdx==candidates.length){
+            return ;
+        }
+
+        combine(res,cur,curSum,startIdx+1,candidates,target); // 不选择当前元素
+
+        cur.add(candidates[startIdx]);
+        curSum += candidates[startIdx];
+        combine(res,cur,curSum,startIdx,candidates,target); // 选择当前元素，由于 candidate中的一个数可以包含多次，因此 startIdx 没有加1
+        curSum -= candidates[startIdx];
+        cur.remove(cur.size()-1);
+    }
+
+
+    /**
+     * leetcode 40. 组合总和 II
+     * 给定一个候选人编号的集合 candidates（`可能存在重复元素`） 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+     * candidates 中的每个数字在每个组合中只能使用 一次 。
+     * 注意：解集不能包含重复的组合
+     *
+     */
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates); // 先对 含有重复数字的 candidates进行排序
+        List<List<Integer>>  res = new ArrayList<>();
+        combine2(res,new ArrayList<Integer>(),0,0, candidates,target);
+        return res;
+    }
+    private void combine2(List<List<Integer>> res,List<Integer> cur,int curSum,int startIdx, int[] candidates, int target){
+        if(curSum==target){
+            res.add(new ArrayList<Integer>(cur));
+            return;
+        }
+        if(curSum>target) return;
+        if(startIdx==candidates.length) return ;
+
+        int i =1;
+        while(startIdx+i<candidates.length && candidates[startIdx+i]==candidates[startIdx]) i++;
+        combine2(res,cur,curSum,startIdx+i,candidates,target); // 对于不包含当前元素的情况，跳过重复元素，防止重复
+
+        cur.add(candidates[startIdx]);
+        curSum += candidates[startIdx];
+        combine2(res,cur,curSum,startIdx+1,candidates,target); // 由于 candidate中每个元素只能使用1次，因此要 startIdx+1
+        curSum -= candidates[startIdx];
+        cur.remove(cur.size()-1);
+    }
+
     @Test
     public void test(){
         String[] abcs = combination("abcc");

@@ -94,29 +94,29 @@ public class Question05 {
 
     /**
      * leetcode 101 对称二叉树  (相似： leetcode 100. 相同的树)
-     * 思路： 同时后序遍历root的左右子树，
-     *       对于左右子树中对应位置的两个节点，只有当一个节点的所有子节点与另一个节点对应位置的子节点值相同，且这两个节点的值也相同时。这两个节点构成的两个子树才为对称的
+     * 思路： 同时线先序遍历root的左右子树，
+     *       对于左右子树中对应位置的两个节点，只有当一个节点的所有子节点与另一个节点对应位置的子节点值相同，且这两个节点的值也相同时。
+     *       这两个节点构成的两个子树才为对称的
      * @param root
      * @return
      */
     public boolean isSymmetric(TreeNode root) {
         if(root==null){
-            return true;
+            return false;
         }
         return isSymmetric(root.left,root.right);
     }
-    private boolean isSymmetric(TreeNode left,TreeNode right) {
-        if(left==null && right==null){
+    private boolean isSymmetric(TreeNode node1, TreeNode node2){
+        if(node1==null && node2==null){
             return true;
         }
-        if(left==null || right==null){
+        if(node1==null || node2==null){
             return false;
         }
-        if (isSymmetric(left.left,right.right) && isSymmetric(left.right,right.left)
-                && left.val==right.val){ // 后序遍历，
-            return true;
+        if(node1.val!=node2.val){
+            return false;
         }
-        return false;
+        return isSymmetric(node1.left,node2.right) && isSymmetric(node1.right,node2.left);
     }
 
     /**

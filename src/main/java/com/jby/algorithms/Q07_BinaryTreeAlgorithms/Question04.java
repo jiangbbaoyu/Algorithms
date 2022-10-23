@@ -41,23 +41,38 @@ public class Question04 {
     }
 
     /**
-     * leetcode 543 二叉树的直径  一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
-     * 思路：二叉树的最小深度一致， 对于子树为空的情况，不在对该子树进行递归，直接给出该子树的信息
+     * leetcode 543 二叉树的直径
+     * 一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
+     * 思路： 后续遍历，
+     *       如果 节点为空，则返回0;
+     *       否则递归计算 左子树和右子树的直径
+     *       使用 左子树和右子树的直径 之和 更新最大直径
+     *       然后返回 左子树和右子树的直径中最大的 +1， 给上层节点, 此时本节点的左子树和右子树只有一个会存在路径上，因此要返回最大的
      */
-    private int max =0;
+    private int maxLen =0;
     public int diameterOfBinaryTree(TreeNode root) {
-        dfs2(root);
-        return max;
+        getDiameter(root);
+        return maxLen;
     }
-    private int dfs2(TreeNode node){
-        if(node.left==null && node.right==null){
+    private int getDiameter(TreeNode root){
+        if(root==null){
             return 0;
         }
-        int left=node.left==null?0:dfs2(node.left)+1;// 如果左子树为空，该节点+左子树的最大直径就是0
-        int right=node.right==null?0:dfs2(node.right)+1;// 如果右子树为空，该节点+右子树的最大直径就是0
-        max=max>left+right?max:left+right;
-        return left>right?left:right;
+        int leftLen =getDiameter(root.left);
+        int rightLen = getDiameter(root.right);
+        maxLen = maxLen > leftLen + rightLen ? maxLen : leftLen + rightLen;
+        return  Math.max(leftLen,rightLen)+1;
     }
+
+    @Test
+    public void test2(){
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        node1.left=node2;
+        int i = diameterOfBinaryTree(node1);
+        System.out.println(i);
+    }
+
 
 
     /**
