@@ -46,14 +46,57 @@ public class Question03_search_rotateArray {
                     right = mid-1; // 在左半段
                 }
             }
+            // 当left== right ,且该元素不是 target时， 漏掉 nums[mid]==nums[right] 会导致死循环
         }
 
         return -1;
     }
 
+    /**
+     * leetcode 81. 搜索旋转排序数组 II  (数组中存在重复数字的情况)
+     * 已知存在一个按非降序排列的整数数组 nums ，数组中的值不必互不相同。
+     * 在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转 ，使数组变为 [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,4,4,5,6,6,7] 在下标 5 处经旋转后可能变为 [4,5,6,6,7,0,1,2,4,4] 。
+     * 给你 旋转后 的数组 nums 和一个整数 target ，请你编写一个函数来判断给定的目标值是否存在于数组中。如果 nums 中存在这个目标值 target ，则返回 true ，否则返回 false 。
+     * 你必须尽可能减少整个操作步骤。
+     *
+     * 思路： 当nums[mid] == nums[right]时，缩减 右侧边界即可
+     * eg :  nums =[3,1,2,3,3,3,3,3], target = 2
+     *              l     m       r    // 此时缩减r即可， nums[r] 肯定不是 target
+     *
+     *       nums =[3,3,3,3,3,1,2,3]  target = 2
+     *              l     m       r    // 此时缩减r即可， nums[r] 肯定不是 target
+     */
+    public boolean search2(int[] nums, int target) {
 
-    // todo 数组有重复元素的情况
+        int left =0;
+        int right = nums.length-1;
 
+        while(left<=right){
+            int mid = left + ((right-left)>>1);
+
+            if(nums[mid]==target){
+                return true;
+            }
+
+            if(nums[mid]>nums[right]){
+                if(nums[left]<=target && nums[mid]>target){
+                    right = mid -1;
+                }else{
+                    left =mid+1;
+                }
+            }else if (nums[mid] == nums[right]){
+                right --;
+            }else if (nums[mid]<nums[right]){
+                if(nums[mid]<target && nums[right]>=target){
+                    left = mid +1;
+                }else{
+                    right = mid -1;
+                }
+            }
+        }
+
+        return false;
+    }
 
     @Test
     public void test(){

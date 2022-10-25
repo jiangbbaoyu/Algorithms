@@ -29,6 +29,26 @@ public class Question10_swapTwoNode_reverseKGroup {
         return dummyNode.next;
     }
 
+    public ListNode swapPairs2(ListNode head) {
+
+        ListNode dummyNode = new ListNode();
+        dummyNode.next = head;
+        ListNode pre = dummyNode;
+        ListNode cur = pre.next;
+
+        while(cur!=null && cur.next!=null){
+            ListNode next = cur.next;
+            cur.next = next.next;
+            next.next = cur;
+            pre.next = next;
+
+            pre = cur;
+            cur = cur.next;
+        }
+
+        return dummyNode.next;
+    }
+
     /**
      * 25. K 个一组翻转链表
      * 给你链表的头节点 head ，每 k 个节点一组进行翻转，请你返回修改后的链表。

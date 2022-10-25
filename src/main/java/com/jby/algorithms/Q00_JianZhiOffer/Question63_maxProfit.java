@@ -6,7 +6,7 @@ package com.jby.algorithms.Q00_JianZhiOffer;
  *
  * 思路：遍历数组时保存当前遍历过的数组元素的最小值， 每次遍历一个元素时就用当前值和最小值计算利润，并保存最大利润
  */
-public class Question63 {
+public class Question63_maxProfit {
     public int maxProfit(int[] prices) {
         if(prices==null || prices.length<=1){
             return 0;

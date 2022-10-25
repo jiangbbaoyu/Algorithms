@@ -45,6 +45,10 @@ public class HeapSort {
 //            heapInsert(arr,i); // 构建大根堆：从头结点开始遍历
 //        }
 
+//        for(int i=arr.length-1;i>=0;i--){
+//            heapify(arr,i,arr.length);
+//        }
+
         for (int i = 0; i <arr.length ; i++) {
             heapify(arr,arr.length-i-1,arr.length);// 构建大根堆：从叶子结点开始遍历
         }
@@ -54,9 +58,9 @@ public class HeapSort {
 //        }
 
         // 交换堆顶的元素到数组的尾部位置（该元素在排好序的数组中的最终位置），并重建大根堆
-        for (int i = 0; i < arr.length; i++) {
-            NumberUtils.swap(arr,0,arr.length-i-1);
-            heapify(arr,0,arr.length-i-1);
+        for(int i=arr.length-1;i>0;i--){
+            NumberUtils.swap(arr,0,i);
+            heapify(arr,0,i);
         }
     }
 

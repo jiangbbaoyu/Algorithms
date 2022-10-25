@@ -5,7 +5,7 @@ package com.jby.algorithms.Q00_JianZhiOffer;
  * 给定一个数组 A[0,1,…,n-1]，请构建一个数组 B[0,1,…,n-1]，其中 B[i] 的值是数组 A 中除了下标 i 以外的元素的积,
  * 即 B[i]=A[0]×A[1]×…×A[i-1]×A[i+1]×…×A[n-1]。不能使用除法
  */
-public class Question66 {
+public class Question66_productExceptSelf {
 
     // 双重循环， 时间复杂度O(N*N)  ，超时
     public int[] constructArr(int[] a) {
@@ -57,6 +57,29 @@ public class Question66 {
         }
 
         return b ;
+    }
+    // 方法3
+    // 记录每个元素的左右累乘 ，
+    // 第i 次循环，计算res[i] 的左半部分 ;  计算res[nums.length-1-i] 的右半部分
+    // 空间复杂度 O(1) (除了res 数组)
+    public int[] productExceptSelf2(int[] nums) {
+
+        int leftPartProduct =1;
+        int rightPartProduct =1;
+        int[] res = new int[nums.length];
+        for(int i=0;i<nums.length;i++){
+            res[i] =1;
+        }
+
+        for(int i=0;i<nums.length;i++){
+            res[i] *= leftPartProduct;
+            leftPartProduct *= nums[i];
+
+            res[nums.length-1-i] *= rightPartProduct;
+            rightPartProduct *= nums[nums.length-1-i];
+        }
+
+        return res;
     }
 
 }
