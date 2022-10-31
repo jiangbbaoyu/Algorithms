@@ -7,7 +7,7 @@ package com.jby.algorithms.Q00_JianZhiOffer;
  *
  * 思路： 先在A中定位到与B根节点值相同的节点， 然后比较以该节点为根的子树是否包含B
  */
-public class Question26 {
+public class Question26_isSubTreeStructure {
     public boolean isSubStructure(TreeNode A, TreeNode B) {
         if(A==null || B==null){
             return false;

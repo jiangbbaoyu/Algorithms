@@ -4,7 +4,7 @@ package com.jby.algorithms.Q00_JianZhiOffer;
  * 剑指 Offer 16. 数值的整数次方
  * 实现 pow(x, n) ，即计算 x 的 n 次幂函数（即，xn）。不得使用库函数，同时不需要考虑大数问题。
  */
-public class Question16 {
+public class Question16_powOfNum {
     public double myPow(double x, int n) {
         boolean isNagitive = n>=0? false : true;
         double res = pow(x,Math.abs((long)n));

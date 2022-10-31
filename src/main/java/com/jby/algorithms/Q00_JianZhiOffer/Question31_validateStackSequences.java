@@ -12,7 +12,7 @@ import java.util.LinkedList;
  *    如果相等则弹出栈顶元素，继续遍历下一个弹出序列元素；
  *    如果不相等则继续将压栈序列中的元素压栈，直到栈顶元素与当前弹出序列元素相等
  */
-public class Question31 {
+public class Question31_validateStackSequences {
 
     public boolean validateStackSequences(int[] pushed, int[] popped) {
         LinkedList<Integer> stack = new LinkedList<Integer>();

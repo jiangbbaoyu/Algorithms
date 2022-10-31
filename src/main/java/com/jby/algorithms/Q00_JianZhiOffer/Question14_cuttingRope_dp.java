@@ -1,7 +1,7 @@
 package com.jby.algorithms.Q00_JianZhiOffer;
 import java.math.BigInteger;
 
-public class Question14 {
+public class Question14_cuttingRope_dp {
     /**
      * 剑指 Offer 14- I. 剪绳子
      * 给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n>1并且m>1），

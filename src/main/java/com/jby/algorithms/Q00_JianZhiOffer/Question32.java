@@ -122,7 +122,6 @@ public class Question32 {
                 }else{
                     levelNodesarr[count-1]=node.val;// 数组由后向前写入数据
                 }
-                // TODO 此处也可以使用LinkedList 来存放levelNodes , 根据 leftToRight 决定使用addFirst 还是addLast 方法写入数据
 
                 if(node.left!=null){
                     queue.addFirst(node.left);

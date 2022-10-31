@@ -7,7 +7,7 @@ import java.util.LinkedList;
 /**
  * 完全二叉树
  */
-public class Question03 {
+public class Question03_completeTree {
 
     /**
      * leetcode 958 完全二叉树判定

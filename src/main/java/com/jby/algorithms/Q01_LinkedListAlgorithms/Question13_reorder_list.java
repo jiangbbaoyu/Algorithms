@@ -22,7 +22,7 @@ public class Question13_reorder_list {
             slow =slow.next;
             fast =fast.next.next;
         }
-        // 2. 保存有半部分的第一个节点，并将左半部分与右半部分断开
+        // 2. 保存右半部分的第一个节点，并将左半部分与右半部分断开
         ListNode rightPartHead = slow.next;
         slow.next =null;
         // 3. 反转右半部分

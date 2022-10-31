@@ -50,4 +50,7 @@ public class Question07_minCoverSubString {
         if(!found) return "";
         return s.substring(minLeft,minRight+1);
     }
+
+    // todo 面试题 17.18. 最短超串
+
 }

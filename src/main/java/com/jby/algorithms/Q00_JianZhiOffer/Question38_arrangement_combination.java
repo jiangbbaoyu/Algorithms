@@ -158,13 +158,6 @@ public class Question38_arrangement_combination {
         cur.remove(cur.size()-1);
     }
 
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>>  res = new ArrayList<>();
-        combine(res,new ArrayList<Integer>(),0,0, candidates,target);
-
-        return res;
-    }
-
     /**
      * leetcode 39. 组合总和
      *  给你一个 `无重复元素` 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合
@@ -178,6 +171,12 @@ public class Question38_arrangement_combination {
      * 7 也是一个候选， 7 = 7 。
      *
      */
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>>  res = new ArrayList<>();
+        combine(res,new ArrayList<Integer>(),0,0, candidates,target);
+
+        return res;
+    }
     private void combine(List<List<Integer>> res,List<Integer> cur,int curSum,int startIdx, int[] candidates, int target){
         if(curSum==target){
             res.add(new ArrayList<Integer>(cur));

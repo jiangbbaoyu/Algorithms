@@ -34,9 +34,7 @@ public class Question07 {
         int idx = findRootValueAtInOrder(inorder,rootValue);
         // 左子树元素有idx-inStart 个
         node.left = build(preorder,preStart+1,preStart+(idx-inStart),inorder,inStart,idx-1,valueToIdx);
-
         node .right = build(preorder,preStart+(idx-inStart)+1,preEnd,inorder,idx+1,inEnd,valueToIdx);
-
         return node;
     }
 

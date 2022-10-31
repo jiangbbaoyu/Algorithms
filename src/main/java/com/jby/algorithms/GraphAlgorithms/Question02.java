@@ -19,11 +19,12 @@ public class Question02 {
                 node2Set.put(node,nodeSet);
             }
         }
-
+        // 查
         public boolean isInSameSet(GraphNode from,GraphNode to){
             return node2Set.get(from)==node2Set.get(to);
         }
 
+        // 并
         // 将from 和 to两个节点所在的集合进行合并
         public void union(GraphNode from,GraphNode to){
             List<GraphNode> fromNodeSets = node2Set.get(from);

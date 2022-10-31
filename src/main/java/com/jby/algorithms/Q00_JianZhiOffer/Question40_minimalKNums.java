@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
  * 剑指 Offer 40. 数组中最小的k个数 (最小的第k个数，思路类似)
  * 输入整数数组 arr ，找出其中最小的 k 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4
  */
-public class Question40 {
+public class Question40_minimalKNums {
 
     // 基于 快排的 partition 函数， 循环直到随机选择的元素 在排序后，是位于数组的第k-1个为止
     // 此时 0~k-1个为 最小的k个元素
